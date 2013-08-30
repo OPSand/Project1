@@ -61,7 +61,7 @@
 \begin_body
 
 \begin_layout Standard
-title
+title goes here
 \end_layout
 
 \begin_layout Standard
@@ -225,23 +225,290 @@ b)
 \end_layout
 
 \begin_layout Standard
-Algorithm:
+The algorithm we will use is as follows: First we do forward subsitution
+ by subtracting from the current row a multiple of the row before it.
+ 
 \end_layout
 
-\begin_layout Itemize
-step 1
+\begin_layout Standard
+\begin_inset Formula $A_{i}=A_{i}-x_{i}A_{i-1}$
+\end_inset
+
+
 \end_layout
 
-\begin_layout Itemize
-step 2
+\begin_layout Standard
+Here, 
+\begin_inset Formula $x_{i}$
+\end_inset
+
+ is the factor that cause the term 
+\begin_inset Formula $a_{i}$
+\end_inset
+
+ to cancel out.
+ Before the first step, the rows 
+\begin_inset Formula $i-1$
+\end_inset
+
+ and 
+\begin_inset Formula $i$
+\end_inset
+
+ look like this (the * indicates a value that has been changed by the algoritm)
 \end_layout
 
-\begin_layout Itemize
-???
+\begin_layout Standard
+\begin_inset Formula $\begin{array}{ccccccc}
+\cdots & 0 & b_{i-1}^{*} & c_{i-1} & 0 & 0 & \cdots\\
+\cdots & 0 & a_{i} & b_{i} & c_{i} & 0 & \cdots
+\end{array}$
+\end_inset
+
+
 \end_layout
 
-\begin_layout Itemize
-profit
+\begin_layout Standard
+and our goal is that it look like this after the forward substitution
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\begin{array}{ccccccc}
+\cdots & 0 & b_{i-1}^{*} & c_{i-1} & 0 & 0 & \cdots\\
+\cdots & 0 & 0 & b_{i}^{*} & c_{i} & 0 & \cdots
+\end{array}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+(note that 
+\begin_inset Formula $c_{i}$
+\end_inset
+
+ is unchanged).
+ When we reach the bottom, we do a backward subsitution by adding to the
+ current row a multiple of the row below it and then dividing the last element
+ by itself to make the last element equal to 1:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $A_{i}=A_{i}-c_{i}A_{i+1}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $A_{i}=\frac{A_{i}}{b_{i}^{*}}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+That is to say, we go from
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\begin{array}{cccccc}
+\cdots & 0 & b_{i}^{*} & c_{i} & 0 & \cdots\\
+\cdots & 0 & 0 & 1 & 0 & \cdots
+\end{array}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+to
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\begin{array}{cccccc}
+\cdots & 0 & 1 & 0 & 0 & \cdots\\
+\cdots & 0 & 0 & 1 & 0 & \cdots
+\end{array}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Naturally, we also have to do equivalent operations on the vector 
+\series bold
+
+\begin_inset Formula $\mathbf{\widetilde{b}}$
+\end_inset
+
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ on the other side of the equation.
+ We will not calculate any unnecessary values, i.e.
+ values that will not be used by the program later on.
+ Hence the algoritm looks like this (number of flops in parantheses):
+\end_layout
+
+\begin_layout Standard
+For 
+\begin_inset Formula $i$
+\end_inset
+
+ : 
+\begin_inset Formula $2\longrightarrow n$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $x_{i}=\frac{a_{i}}{b_{i-1}^{*}}\;$
+\end_inset
+
+ (
+\begin_inset Formula $n$
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $b_{i}=b_{i}-x_{i}c_{i-1}\;$
+\end_inset
+
+(
+\begin_inset Formula $2n$
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $\widetilde{b}_{i}=\widetilde{b}_{i}-x_{i}\widetilde{b}_{i-1}\;$
+\end_inset
+
+(
+\begin_inset Formula $2n$
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Standard
+For 
+\begin_inset Formula $i$
+\end_inset
+
+ : 
+\begin_inset Formula $n-1\longrightarrow1$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $\widetilde{b}_{i}=\widetilde{b}_{i}-c_{i}\widetilde{b}_{i+1}\;$
+\end_inset
+
+(
+\begin_inset Formula $2n$
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Enumerate
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $\widetilde{b}_{i}=\frac{\widetilde{b}_{i}}{b_{i}}$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+
+\begin_inset Formula $\;$
+\end_inset
+
+ (
+\begin_inset Formula $n$
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Standard
+This makes the total running time of the algorihm 
+\begin_inset Formula $8n$
+\end_inset
+
+ (actually, it is 
+\begin_inset Formula $8(n-1)$
+\end_inset
+
+, but we are mostly concerned with the performance for large 
+\begin_inset Formula $n$
+\end_inset
+
+, where 
+\begin_inset Formula $n\approx n-1$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+(Optional: Show that you need 
+\begin_inset Formula $6n$
+\end_inset
+
+ operations when 
+\begin_inset Formula $a_{i}=c_{i}$
+\end_inset
+
+ for all 
+\begin_inset Formula $i$
+\end_inset
+
+.)
+\end_layout
+
+\begin_layout Standard
+c)
+\end_layout
+
+\begin_layout Standard
+...
 \end_layout
 
 \end_body

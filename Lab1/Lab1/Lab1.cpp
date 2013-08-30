@@ -43,19 +43,6 @@ int main(int argc, char* argv[])
 		leavingKey = getchar();
 	} while (leavingKey != 'q') ;
 
-	// test plotting to file
-	int n = 10;
-	arr a = dynamicalVector(n);
-	arr b = dynamicalVector(n);
-
-	for( int i = 0; i < n; i++ )
-	{
-		a[i] = ((double) i);
-		b[i] = ((double) i*2);
-	}
-
-	WriteToFile(a, b, "test.txt", n);
-
 	getchar(); // pause to be able to see output while debugging
 
 	return 0;
@@ -177,6 +164,16 @@ int exB (int sizeVector)
 		TYPE total = (1 - (1-exp((double)-10))*truc - exp(-(double)10*truc));
 		printf("U[%d] theorique : %f \t", i, total); // XXX A enlever ensuite. Juste pour tester.
 	}*/
+
+	// plot to file
+	arr x = dynamicalVector(sizeVector); // x axis values from 0 to 1
+
+	for( int i = 0; i < sizeVector; i++ )
+	{
+		x[i] = (i * h);
+	}
+
+	WriteToFile(x, v_Solution, "plot.txt", sizeVector);
 
 	return 0;
 }

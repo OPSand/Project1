@@ -4,6 +4,7 @@
 
 #include "stdafx.h"
 #include "DynamicAllocation.h"
+#include "Plot.h"
 #include <iostream>
 #include <cmath>
 #include <iomanip> 
@@ -41,6 +42,21 @@ int main(int argc, char* argv[])
 		printf( "\n Press q to leave \n" );	
 		leavingKey = getchar();
 	} while (leavingKey != 'q') ;
+
+	// test plotting to file
+	int n = 10;
+	arr a = dynamicalVector(n);
+	arr b = dynamicalVector(n);
+
+	for( int i = 0; i < n; i++ )
+	{
+		a[i] = ((double) i);
+		b[i] = ((double) i*2);
+	}
+
+	WriteToFile(a, b, "test.txt", n);
+
+	getchar(); // pause to be able to see output while debugging
 
 	return 0;
 }

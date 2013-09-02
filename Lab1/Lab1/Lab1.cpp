@@ -18,6 +18,9 @@ bool forwardSubstitutionVector(TYPE* v_f, TYPE* v_b, TYPE* v_a, int sizeVector);
 bool backwardSubstitutionVector(TYPE* v_f, TYPE* v_b, TYPE* v_a,TYPE* v_Solution, int sizeVector);
 int exA(int sizeVector);
 int exB(int sizeVector);
+TYPE maxRelError(arr numericalVector, int n);
+arr analyticVector(int n, TYPE h);
+TYPE u(TYPE x);
 
 int main(int argc, char* argv[])
 {
@@ -222,4 +225,42 @@ bool backwardSubstitutionVector(TYPE* v_f, TYPE* v_b, TYPE* v_c,TYPE* v_Solution
 	}
 	printf("\n"); 
 	return true;
+}
+
+TYPE maxRelError(arr numericalVector, arr analyticVector, int n) {
+	TYPE zeroValue = -1000; // the logarithm of anything should be greater than this
+	TYPE e_max = zeroValue;
+
+	for( int i = 0; i < n; i++ ) {
+		TYPE v_i = numericalVector[i];
+		TYPE u_i = analyticVector[i];
+
+		TYPE e_i;
+		try {
+			TYPE e_i = log10(abs((v_i - u_i) / u_i)); // could be log10( 0 ) in theory...
+		} catch( exception e ) {
+			e_i = zeroValue; // ...but we can work around that.
+		}
+
+		if( e_i > e_max ) {
+			e_max = e_i;
+		}
+	}
+
+	return e_max;
+}
+
+arr analyticVector(int n, TYPE h) {
+	arr a = dynamicalVector(n);
+
+	for( int i = 0; i < n; i++ ) {
+		TYPE x = i * h;
+		a[i] = u(x);
+	}
+
+	return a;
+}
+
+TYPE u(TYPE x) {
+	return (1 - (1 - exp(-10.0))*x - exp(-10.0*x));
 }

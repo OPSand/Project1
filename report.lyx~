@@ -484,23 +484,144 @@ This makes the total running time of the algorihm
 \begin_inset Formula $n\approx n-1$
 \end_inset
 
-.
+).
 \end_layout
 
 \begin_layout Standard
-(Optional: Show that you need 
-\begin_inset Formula $6n$
+If the matrix is symmetric, so that 
+\begin_inset Formula $a_{i}=c_{i-1},$
 \end_inset
 
- operations when 
-\begin_inset Formula $a_{i}=c_{i}$
+ then 
+\begin_inset Formula $x_{i}c_{i-1}=\frac{a_{i}^{2}}{b_{i-1}^{*}}$
 \end_inset
 
- for all 
+.
+ If 
+\begin_inset Formula $a_{i}=c_{i-1}=k$
+\end_inset
+
+ and is the same value for every row, where 
+\begin_inset Formula $k=\pm1$
+\end_inset
+
+, then 
+\begin_inset Formula $k^{2}=1$
+\end_inset
+
+ and 
+\begin_inset Formula $x_{i}c_{i-1}=\frac{1}{b_{i-1}^{*}}=x_{i}$
+\end_inset
+
+.
+ The algorithm will then look like this:
+\end_layout
+
+\begin_layout Standard
+For 
 \begin_inset Formula $i$
 \end_inset
 
-.)
+ : 
+\begin_inset Formula $2\longrightarrow n$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $x_{i}=\frac{1}{b_{i-1}^{*}}\;$
+\end_inset
+
+ (
+\begin_inset Formula $n$
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $b_{i}=b_{i}-x_{i}\;$
+\end_inset
+
+(
+\begin_inset Formula $n$
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $\widetilde{b}_{i}=\widetilde{b}_{i}-x_{i}\widetilde{b}_{i-1}\;$
+\end_inset
+
+(
+\begin_inset Formula $2n$
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Standard
+For 
+\begin_inset Formula $i$
+\end_inset
+
+ : 
+\begin_inset Formula $n-1\longrightarrow1$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $\widetilde{b}_{i}=\widetilde{b}_{i}\pm b_{i+1}\;$
+\end_inset
+
+(
+\begin_inset Formula $n$
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Enumerate
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $\widetilde{b}_{i}=\frac{\widetilde{b}_{i}}{b_{i}}$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+
+\begin_inset Formula $\;$
+\end_inset
+
+ (
+\begin_inset Formula $n$
+\end_inset
+
+)
 \end_layout
 
 \begin_layout Standard

@@ -14,5 +14,6 @@
 #define TYPE double
 //#define EXA
 typedef TYPE* arr; // it's good to be a pirate! (this is our array type)
+typedef TYPE** matr; // a typed matrix
 
 // TODO: faites référence ici aux en-têtes supplémentaires nécessaires au programme

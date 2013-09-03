@@ -169,14 +169,20 @@ int exB (int sizeVector)
 	}*/
 
 	// plot to file
-	arr x = dynamicalVector(sizeVector); // x axis values from 0 to 1
+	matr xy = dynamicalMatrix(sizeVector, 3); // column 0: 0-1, column 1: analytical, column 2: numerical
+	arr v_Analytic = analyticVector(sizeVector, h);
 
 	for( int i = 0; i < sizeVector; i++ )
 	{
-		x[i] = (i * h);
+		for( int j = 0; j < 3; j++ )
+		{
+			xy[i][0] = (i * h);
+			xy[i][1] = v_Analytic[i];
+			xy[i][2] = v_Solution[i];
+		}
 	}
 
-	WriteToFile(x, v_Solution, "plot.txt", sizeVector);
+	WriteToFile(xy, "plot.txt", sizeVector, 3);
 
 	return 0;
 }

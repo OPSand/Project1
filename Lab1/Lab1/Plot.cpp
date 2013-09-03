@@ -6,15 +6,25 @@
 
 using namespace std;
 
-	// Write the content of 2 arrays to file for plotting in Matlab
-	void WriteToFile(arr x, arr y, string path, int n)
+	// Write the content of a matrix to file for plotting in Matlab
+	void WriteToFile(matr M, string path, int nRow, int nCol)
 	{
 		ofstream outfile;
 		outfile.open(path);
 
-		for( int i = 0; i < n; i++ )
+		for( int i = 0; i < nRow; i++ ) // rows
 		{
-			outfile << x[i] << ' ' << y[i] << endl;		// write line
+			for( int j = 0; j < nCol; j++ ) // columns
+			{
+				if( j > 0 ) // no leading space
+				{
+					outfile << ' ';
+				}
+
+				outfile << M[i][j];
+			}
+
+			outfile << endl; // newline character
 		}
 
 		outfile.close();

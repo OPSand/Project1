@@ -10,6 +10,7 @@
 #include <iomanip> 
 
 using namespace std;
+using namespace arma;
 
 // Prototypes:
 bool forwardSubstitutionMatrix(TYPE** m_A, TYPE* v_f, int sizeVector);
@@ -45,6 +46,9 @@ int main(int argc, char* argv[])
 		printf( "\n Press q to leave \n" );	
 		leavingKey = getchar();
 	} while (leavingKey != 'q') ;
+
+	mat A = randu<mat>(5,5);
+	det(A);
 
 	getchar(); // pause to be able to see output while debugging
 

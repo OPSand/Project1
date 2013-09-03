@@ -27,6 +27,9 @@
     <ClInclude Include="DynamicAllocation.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
+    <ClInclude Include="Plot.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -36,6 +39,9 @@
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="DynamicAllocation.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Plot.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
   </ItemGroup>

@@ -48,7 +48,7 @@ int main(int argc, char* argv[])
 	} while (leavingKey != 'q') ;
 
 	mat A = randu<mat>(5,5);
-	det(A);
+	cout << det(A);
 
 	getchar(); // pause to be able to see output while debugging
 
@@ -173,20 +173,20 @@ int exB (int sizeVector)
 	}*/
 
 	// plot to file
-	matr xy = dynamicalMatrix(sizeVector, 3); // column 0: 0-1, column 1: analytical, column 2: numerical
+	matr xy = matr(sizeVector, 3); // column 0: 0-1, column 1: analytical, column 2: numerical
 	arr v_Analytic = analyticVector(sizeVector, h);
 
 	for( int i = 0; i < sizeVector; i++ )
 	{
 		for( int j = 0; j < 3; j++ )
 		{
-			xy[i][0] = (i * h);
-			xy[i][1] = v_Analytic[i];
-			xy[i][2] = v_Solution[i];
+			xy(i, 0) = (i * h);
+			xy(i, 1) = v_Analytic[i];
+			xy(i, 2) = v_Solution[i];
 		}
 	}
 
-	WriteToFile(xy, "plot.txt", sizeVector, 3);
+	xy.save("plot.txt", raw_ascii);
 
 	return 0;
 }
@@ -261,7 +261,7 @@ TYPE maxRelError(arr numericalVector, arr analyticVector, int n) {
 }
 
 arr analyticVector(int n, TYPE h) {
-	arr a = dynamicalVector(n);
+	arr a = arr(n);
 
 	for( int i = 0; i < n; i++ ) {
 		TYPE x = i * h;

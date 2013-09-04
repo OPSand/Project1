@@ -6,4 +6,4 @@
 using namespace std;
 
 // Write the content of 2 arrays to file for plotting in Matlab
-void WriteToFile(matr, string, int, int);
+void WriteToFile(TYPE**, string, int, int);

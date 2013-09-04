@@ -7,7 +7,8 @@
 using namespace std;
 
 	// Write the content of a matrix to file for plotting in Matlab
-	void WriteToFile(matr M, string path, int nRow, int nCol)
+	// (obviously now redundant because armadillo does the same thing)
+	void WriteToFile(TYPE** M, string path, int nRow, int nCol)
 	{
 		ofstream outfile;
 		outfile.open(path);

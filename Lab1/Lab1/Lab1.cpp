@@ -19,7 +19,7 @@ bool forwardSubstitutionVector(arr v_f, arr v_b, arr v_a, int sizeVector);
 bool backwardSubstitutionVector(arr v_f, arr v_b, arr v_a, arr v_Solution, int sizeVector);
 int exA(int sizeVector);
 int exB(int sizeVector);
-TYPE maxRelError(arr numericalVector, int n);
+TYPE maxRelError(arr numericalVector, arr analyticVector, int n);
 arr analyticVector(int n, TYPE h);
 TYPE u(TYPE x);
 

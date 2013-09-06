@@ -13,10 +13,10 @@ using namespace std;
 using namespace arma;
 
 // Prototypes:
-bool forwardSubstitutionMatrix(TYPE** m_A, TYPE* v_f, int sizeVector);
-bool backwardSubstitutionMatrix(TYPE** m_A, TYPE* v_f,TYPE* v_Solution, int sizeVector);
-bool forwardSubstitutionVector(TYPE* v_f, TYPE* v_b, TYPE* v_a, int sizeVector);
-bool backwardSubstitutionVector(TYPE* v_f, TYPE* v_b, TYPE* v_a,TYPE* v_Solution, int sizeVector);
+bool forwardSubstitutionMatrix(matr m_A, arr v_f, int sizeVector);
+bool backwardSubstitutionMatrix(matr m_A, arr v_f, arr v_Solution, int sizeVector);
+bool forwardSubstitutionVector(arr v_f, arr v_b, arr v_a, int sizeVector);
+bool backwardSubstitutionVector(arr v_f, arr v_b, arr v_a, arr v_Solution, int sizeVector);
 int exA(int sizeVector);
 int exB(int sizeVector);
 TYPE maxRelError(arr numericalVector, int n);
@@ -61,60 +61,58 @@ int main(int argc, char* argv[])
 int exA(int sizeVector)
 {
 	// Declaration of our matrix
-	TYPE** m_A;
-	m_A = dynamicalMatrix(sizeVector,sizeVector);
+	matr m_A = matr(sizeVector, sizeVector);
 	// Declaration of our vectors:
-	TYPE* v_Solution = dynamicalVector(sizeVector); // This one is the one we are trying to find
-	TYPE* v_f = dynamicalVector(sizeVector); // This one is the part h²*100e(-10x)
+	arr v_Solution = arr(sizeVector); // This one is the one we are trying to find
+	arr v_f = arr(sizeVector); // This one is the part h²*100e(-10x)
 	
-	TYPE h = (double)((double)1/(sizeVector + 1)); // This is our step length
+	TYPE h = ((1.0/(((TYPE) sizeVector) + 1.0))); // This is our step length
 
 	// Initialization
 	for (int i=0; i<sizeVector;i++)
 	{
-		v_f[i] = pow(h,2)*100*exp(-(double)i*h);
-		printf("f[%d]: %f \t", i, v_f[i]); // XXX A enlever ensuite. Juste pour tester.
+		v_f[i] = pow(h,2)*100*exp(-(TYPE)i*h);
+		std::printf("f[%d]: %f \t", i, v_f[i]); // XXX A enlever ensuite. Juste pour tester.
 		for (int j=0; j < sizeVector; j++)
 		{
 			if ((j== i-1) || (j== i+1))
-				m_A[i][j] = -1;
+				m_A(i, j) = -1;
 			else if (j == i)
-				m_A[i][j] = 2;
+				m_A(i, j) = 2;
 		}
 	}
 
-	printf("\n");// XXX A enlever ensuite. Juste pour tester.
+	std::printf("\n");// XXX A enlever ensuite. Juste pour tester.
 
 	// Forward Substitution
 	forwardSubstitutionMatrix(m_A,v_f,sizeVector);
 	backwardSubstitutionMatrix(m_A,v_f,v_Solution,sizeVector);
 
-
 	// A enlever plus tard: Vérif !
 	TYPE truc = 0.0;
 	for (int i=1; i<sizeVector+1;i++)
 	{
-		truc = (double)i*h;
-		TYPE total = (1 - (1-exp((double)-10))*truc - exp(-(double)10*truc));
-		printf("U[%d] theorique : %f \t", i, total); // XXX A enlever ensuite. Juste pour tester.
+		truc = (TYPE)i*h;
+		TYPE total = u(truc);
+		std::printf("U[%d] theorique : %f \t", i, total); // XXX A enlever ensuite. Juste pour tester.
 	}
-	printf("\n");// XXX A enlever ensuite. Juste pour tester.
+	std::printf("\n");// XXX A enlever ensuite. Juste pour tester.
 	return 0;
 }
 
 // Function used to do the first step of the Gaussion elimination: the Forward Substitution
 // We'll kill every term which prevents the matrix A to be an upper triangular one.
-bool forwardSubstitutionMatrix(TYPE** m_A, TYPE* v_f, int sizeVector)
+bool forwardSubstitutionMatrix(matr m_A, arr v_f, int sizeVector)
 {
 	TYPE coef = 0.0;
 	// Our matrix is a tridiagonal matrix, thus, we don't need to do a classical Gauss elimination
 	for (int i=1;i < sizeVector; i++)
 	{
-		coef = m_A[i][i-1]/m_A[i-1][i-1];
+		coef = m_A(i, i-1)/m_A(i-1, i-1);
 		for (int j=1; j< sizeVector; j++)
 		{
-			m_A[i][j] -= coef*m_A[i-1][j]; 
-			printf("m_A[%d][%d]: %f \n", i, j, m_A[i][j]);
+			m_A(i, j) -= coef*m_A(i-1, j); 
+			printf("m_A[%d][%d]: %f \n", i, j, m_A(i, j));
 		}
 		v_f[i] -= v_f[i-1]*coef;
 		
@@ -126,14 +124,14 @@ bool forwardSubstitutionMatrix(TYPE** m_A, TYPE* v_f, int sizeVector)
 // Function used to do the 2nd step of the Gaussian elimination
 // We'll solve the equations' system
 // TODO: prevent the case m_A[0][0]= 0
-bool backwardSubstitutionMatrix(TYPE** m_A, TYPE* v_f,TYPE* v_Solution, int sizeVector)
+bool backwardSubstitutionMatrix(matr m_A, arr v_f, arr v_Solution, int sizeVector)
 {
 	// We process the n case first, and then, we loop
-	v_Solution[sizeVector-1] = v_f[sizeVector-1] / m_A[sizeVector-1][sizeVector-1];
+	v_Solution[sizeVector-1] = v_f[sizeVector-1] / m_A(sizeVector-1, sizeVector-1);
 	printf("u[%d]: %f \n", sizeVector-1, v_Solution[sizeVector-1]);// XXX A enlever ensuite. Juste pour tester.
 	for (int i= sizeVector-2; i > -1; i--)
 	{
-		v_Solution[i] = (v_f[i] - v_Solution[i+1]*m_A[i][i+1]) / m_A[i][i];
+		v_Solution[i] = (v_f[i] - v_Solution[i+1]*m_A(i, i+1) / m_A(i, i));
 		printf("u[%d]: %f \n", i, v_Solution[i]);
 	}
 	// Problème dans le coin ... >.<
@@ -144,12 +142,12 @@ bool backwardSubstitutionMatrix(TYPE** m_A, TYPE* v_f,TYPE* v_Solution, int size
 int exB (int sizeVector)
 {
 	// Declaration of our vectors:
-	TYPE* v_Solution = dynamicalVector(sizeVector); // This one is the one we are trying to find
-	TYPE* v_f = dynamicalVector(sizeVector); // This one is the part h²*100e(-10x)
-	TYPE* v_b = dynamicalVector(sizeVector); // The diagonal part of the matrix A
-	TYPE* v_a = dynamicalVector(sizeVector); // And this one will be the one to describe the two sub-diagonals.
+	arr v_Solution = arr(sizeVector); // This one is the one we are trying to find
+	arr v_f = arr(sizeVector); // This one is the part h²*100e(-10x)
+	arr v_b = arr(sizeVector); // The diagonal part of the matrix A
+	arr v_a = arr(sizeVector); // And this one will be the one to describe the two sub-diagonals.
 	
-	TYPE h = (double)(1/(double)(sizeVector +1)); // This is our step length
+	TYPE h = (1.0/(((double)sizeVector) + 1.0)); // This is our step length
 
 	// Initialization
 	for (int i=0; i<sizeVector;i++)
@@ -193,10 +191,10 @@ int exB (int sizeVector)
 
 // Function used to do the first step of the Gaussion elimination: the Forward Substitution
 // We'll kill every term which prevents the matrix A to be an upper triangular one.
-bool forwardSubstitutionVector(TYPE* v_f, TYPE* v_b, TYPE* v_c, int sizeVector)
+bool forwardSubstitutionVector(arr v_f, arr v_b, arr v_c, int sizeVector)
 {
 	// First, we need to duplicate v_a, since we have to "nearly diagonals"
-	TYPE* v_a = dynamicalVector(sizeVector);
+	arr v_a = arr(sizeVector);
 	// Initialization of our 2nd vector
 	for (int i= 0; i< sizeVector; i++)
 		v_a[i]=v_c[i];
@@ -222,7 +220,7 @@ bool forwardSubstitutionVector(TYPE* v_f, TYPE* v_b, TYPE* v_c, int sizeVector)
 	return true;
 }
 
-bool backwardSubstitutionVector(TYPE* v_f, TYPE* v_b, TYPE* v_c,TYPE* v_Solution, int sizeVector)
+bool backwardSubstitutionVector(arr v_f, arr v_b, arr v_c, arr v_Solution, int sizeVector)
 {
 	// We save the last term:
 	v_Solution[sizeVector-1] = v_f[sizeVector-1]/v_b[sizeVector-1];
@@ -272,5 +270,5 @@ arr analyticVector(int n, TYPE h) {
 }
 
 TYPE u(TYPE x) {
-	return (1 - (1 - exp(-10.0))*x - exp(-10.0*x));
+	return (1.0 - (1.0 - exp(-10.0))*x - exp(-10.0*x));
 }

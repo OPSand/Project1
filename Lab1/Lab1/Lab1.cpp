@@ -50,7 +50,7 @@ int main(int argc, char* argv[])
 	mat A = randu<mat>(5,5);
 	cout << det(A);
 
-	getchar(); // pause to be able to see output while debugging
+	// getchar(); // pause to be able to see output while debugging (why doesn't this work)
 
 	return 0;
 }

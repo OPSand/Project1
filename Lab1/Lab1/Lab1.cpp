@@ -57,6 +57,7 @@ int exA(int sizeVector)
 {
 	// Declaration of our matrix
 	matr m_A = matr(sizeVector, sizeVector);
+
 	// Declaration of our vectors:
 	arr v_Solution = arr(sizeVector); // This one is the one we are trying to find
 	arr v_f = arr(sizeVector); // This one is the part h²*100e(-10x)
@@ -136,6 +137,30 @@ bool backwardSubstitutionMatrix(matr m_A, arr v_f, arr v_Solution, int sizeVecto
 
 int exB (int sizeVector)
 {
+	/* matr m_A = matr(sizeVector,sizeVector//  Test for the LU decomposition provided by Arma. Work in Progress
+	for (int i=0; i<sizeVector; i++)
+	{
+		for (int j= 0; j < sizeVector;j++)
+		{
+			m_A(i,j) = 0;
+			if (j == i)
+				m_A(i,j) = 2;
+			else if ((j == i-1) || (j== i+1))
+				m_A(i,j) = -1;
+		}
+	}
+
+	matr U,L,P= mat (sizeVector,sizeVector);
+	//
+	lu(L,U,P,m_A);
+	//lu(L,U,m_A);
+
+	for (int i=0; i< sizeVector;i++)
+	{
+		for (int j=0; j< sizeVector;j++)
+			cout << U(i,j);
+	}
+	*/
 	// Declaration of our vectors:
 	arr v_Solution = arr(sizeVector); // This one is the one we are trying to find
 	arr v_f = arr(sizeVector); // This one is the part h²*100e(-10x)
@@ -143,11 +168,12 @@ int exB (int sizeVector)
 	arr v_a = arr(sizeVector); // And this one will be the one to describe the two sub-diagonals.
 	
 	TYPE h = (1.0/(((double)sizeVector) - 1.0)); // This is our step length
-
+	TYPE x = 0.0f;
 	// Initialization
 	for (int i=0; i<sizeVector;i++)
 	{
-		v_f[i] = pow(h,2)*100*exp(-(double)i*h);
+		x= i*h;
+		v_f[i] = pow(h,2)*100*exp(-(double)10*x);
 		v_b[i] = 2;
 		v_a[i] = -1;
 	}
@@ -205,9 +231,9 @@ bool forwardSubstitutionVector(arr v_f, arr v_b, arr v_c, int sizeVector)
 	printf("a%d : %f \t b%d : %f \t c%d : %f \n",0, v_a[0],0, v_b[0],0, v_c[0]); // XXX : a enlever plus tard
 	for (int i= 1; i< sizeVector; i++)
 	{
-		coef = v_a[i]/v_b[i-1];
+		coef = 1/v_b[i-1];
 		v_a[i] -= coef*v_b[i-1]; // XXX : à enlever plus tard .
-		v_b[i] -= coef*v_c[i-1];
+		v_b[i] -= coef;
 		v_f[i] -= coef*v_f[i-1];
 		printf("a%d : %f \t b%d : %f \t c%d : %f \n",i, v_a[i],i, v_b[i],i, v_c[i]); // XXX : a enlever plus tard
 	}
@@ -226,8 +252,9 @@ bool backwardSubstitutionVector(arr v_f, arr v_b, arr v_c, arr v_Solution, int s
 	// and then we compute what's left
 	for (int i = sizeVector-1; i > 0; i--)
 	{
-		v_Solution[i-1] = (v_f[i-1] - v_c[i-1]*v_Solution[i])/ v_b[i-1]; // ~2n flops
-		printf(" u%d : %f \t", i-1, v_Solution[i-1]); // XXX : a enlever plus tard
+		v_Solution[i-1] = (v_f[i-1] + v_Solution[i]) / v_b[i-1]; // ~2n flops
+		printf(" u%d : %f | ", i-1, v_Solution[i-1]); // XXX : a enlever plus tard
+		//cout << " U:"  << i << ":"<< v_Solution[i-1];
 	}
 	printf("\n"); 
 	return true;
@@ -261,9 +288,9 @@ arr analyticVector(int n, TYPE h) {
 
 	for( int i = 0; i < n; i++ ) {
 		TYPE x = i * h;
-		cout << x;
+		//cout << x;
 		a[i] = u(x);
-		cout << a;
+		//cout << a;
 	}
 
 	return a;

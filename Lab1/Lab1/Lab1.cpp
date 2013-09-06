@@ -46,12 +46,7 @@ int main(int argc, char* argv[])
 		printf( "\n Press q to leave \n" );	
 		leavingKey = getchar();
 	} while (leavingKey != 'q') ;
-
-	mat A = randu<mat>(5,5);
-	//cout << det(A); // Debugging Test
-
-	// getchar(); // pause to be able to see output while debugging (why doesn't this work)
-
+	
 	return 0;
 }
 
@@ -66,7 +61,7 @@ int exA(int sizeVector)
 	arr v_Solution = arr(sizeVector); // This one is the one we are trying to find
 	arr v_f = arr(sizeVector); // This one is the part h²*100e(-10x)
 	
-	TYPE h = ((1.0/(((TYPE) sizeVector) + 1.0))); // This is our step length
+	TYPE h = (1.0/(((TYPE) sizeVector)-1.0)); // This is our step length
 
 	// Initialization
 	for (int i=0; i<sizeVector;i++)
@@ -147,7 +142,7 @@ int exB (int sizeVector)
 	arr v_b = arr(sizeVector); // The diagonal part of the matrix A
 	arr v_a = arr(sizeVector); // And this one will be the one to describe the two sub-diagonals.
 	
-	TYPE h = (1.0/(((double)sizeVector) + 1.0)); // This is our step length
+	TYPE h = (1.0/(((double)sizeVector) - 1.0)); // This is our step length
 
 	// Initialization
 	for (int i=0; i<sizeVector;i++)
@@ -185,6 +180,9 @@ int exB (int sizeVector)
 	}
 
 	xy.save("plot.txt", raw_ascii);
+
+	printf(" This is our max Rel error : %d", maxRelError(v_Solution,v_Analytic,sizeVector));
+
 
 	return 0;
 }
@@ -243,7 +241,7 @@ TYPE maxRelError(arr numericalVector, arr analyticVector, int n) {
 		TYPE v_i = numericalVector[i];
 		TYPE u_i = analyticVector[i];
 
-		TYPE e_i;
+		TYPE e_i= 0.0f;
 		try {
 			TYPE e_i = log10(abs((v_i - u_i) / u_i)); // could be log10( 0 ) in theory...
 		} catch( exception e ) {
@@ -263,7 +261,9 @@ arr analyticVector(int n, TYPE h) {
 
 	for( int i = 0; i < n; i++ ) {
 		TYPE x = i * h;
+		cout << x;
 		a[i] = u(x);
+		cout << a;
 	}
 
 	return a;

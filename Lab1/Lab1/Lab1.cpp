@@ -210,6 +210,7 @@ int exB (int sizeVector)
 	printf(" This is our max Rel error : %d", maxRelError(v_Solution,v_Analytic,sizeVector));
 
 	arr v_test = arr(4);
+	v_b = arr(4);
 	arr v_c = arr(4);
 	for( int i = 0; i < 4; i++ ) {
 		v_test[i] = (TYPE)i+1;
@@ -218,15 +219,18 @@ int exB (int sizeVector)
 	}
 
 	forwardSubstitutionVector(v_test, v_b, v_c, 4);
+	cout << endl;
 	for(int i = 0; i < 4; i++) {
 		cout << "f# " << v_test[i];
 	}
+	cout << endl;
 
 	arr v_test2 = arr(4);
 	backwardSubstitutionVector(v_test, v_b, v_c, v_test2, 4);
 	for(int i = 0; i < 4; i++) {
 		cout << "b# " << v_test[i];
 	}
+	cout << endl;
 
 	return 0;
 }

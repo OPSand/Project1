@@ -142,7 +142,7 @@ int exB (int sizeVector)
 	{
 		for (int j= 0; j < sizeVector;j++)
 		{
-			m_A(i,j) = 0;
+			m_A(i,j) = 0; 
 			if (j == i)
 				m_A(i,j) = 2;
 			else if ((j == i-1) || (j== i+1))

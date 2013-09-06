@@ -48,7 +48,7 @@ int main(int argc, char* argv[])
 	} while (leavingKey != 'q') ;
 
 	mat A = randu<mat>(5,5);
-	cout << det(A);
+	//cout << det(A); // Debugging Test
 
 	getchar(); // pause to be able to see output while debugging
 

@@ -15,8 +15,8 @@ using namespace arma;
 // Prototypes:
 bool forwardSubstitutionMatrix(matr m_A, arr v_f, int sizeVector);
 bool backwardSubstitutionMatrix(matr m_A, arr v_f, arr v_Solution, int sizeVector);
-bool forwardSubstitutionVector(arr v_f, arr v_b, arr v_a, int sizeVector);
-bool backwardSubstitutionVector(arr v_f, arr v_b, arr v_a, arr v_Solution, int sizeVector);
+bool forwardSubstitutionVector(arr &v_f, arr &v_b, arr v_a, int sizeVector);
+bool backwardSubstitutionVector(arr &v_f, arr &v_b, arr v_a, arr &v_Solution, int sizeVector);
 int exA(int sizeVector);
 int exB(int sizeVector);
 TYPE maxRelError(arr numericalVector, arr analyticVector, int n);
@@ -174,7 +174,7 @@ int exB (int sizeVector)
 	{
 		x= i*h;
 		v_f[i] = pow(h,2)*100*exp(-(double)10*x);
-		v_b[i] = 2;
+		v_b(i) = 2;
 		v_a[i] = -1;
 	}
 
@@ -209,13 +209,13 @@ int exB (int sizeVector)
 
 	printf(" This is our max Rel error : %d", maxRelError(v_Solution,v_Analytic,sizeVector));
 
-	arr v_test = arr(4);
+	/*arr v_test = arr(4);
 	v_b = arr(4);
 	arr v_c = arr(4);
 	for( int i = 0; i < 4; i++ ) {
 		v_test[i] = (TYPE)i+1;
-		v_b = 2;
-		v_c = -1;
+		v_b(i) = 2;
+		v_c(i) = -1;
 	}
 
 	forwardSubstitutionVector(v_test, v_b, v_c, 4);
@@ -229,7 +229,7 @@ int exB (int sizeVector)
 	backwardSubstitutionVector(v_test, v_b, v_c, v_test2, 4);
 	for(int i = 0; i < 4; i++) {
 		cout << "b# " << v_test[i];
-	}
+	}*/
 	cout << endl;
 
 	return 0;
@@ -237,9 +237,11 @@ int exB (int sizeVector)
 
 // Function used to do the first step of the Gaussion elimination: the Forward Substitution
 // We'll kill every term which prevents the matrix A to be an upper triangular one.
-bool forwardSubstitutionVector(arr v_f, arr v_b, arr v_c, int sizeVector)
+bool forwardSubstitutionVector(arr &v_f, arr  &v_b, arr v_c, int sizeVector)
 {
 	// First, we need to duplicate v_a, since we have to "nearly diagonals"
+	//arr v_f = arr(sizeVector);
+	//&v_f = add_v_f;
 	arr v_a = arr(sizeVector);
 	// Initialization of our 2nd vector
 	for (int i= 0; i< sizeVector; i++)
@@ -266,15 +268,17 @@ bool forwardSubstitutionVector(arr v_f, arr v_b, arr v_c, int sizeVector)
 	return true;
 }
 
-bool backwardSubstitutionVector(arr v_f, arr v_b, arr v_c, arr v_Solution, int sizeVector)
+bool backwardSubstitutionVector(arr &v_f, arr &v_b, arr v_c, arr &v_Solution, int sizeVector)
 {
 	// We save the last term:
 	v_Solution[sizeVector-1] = v_f[sizeVector-1]/v_b[sizeVector-1];
 	printf(" u%d : %f \t", sizeVector-1, v_Solution[sizeVector-1]); // XXX : a enlever plus tard
 	// and then we compute what's left
+	TYPE x= v_Solution[sizeVector-1];
 	for (int i = sizeVector-1; i > 0; i--)
 	{
 		v_Solution[i-1] = (v_f[i-1] + v_Solution[i]) / v_b[i-1]; // ~2n flops
+		x= v_Solution[i-1];
 		printf(" u%d : %f | ", i-1, v_Solution[i-1]); // XXX : a enlever plus tard
 		//cout << " U:"  << i << ":"<< v_Solution[i-1];
 	}

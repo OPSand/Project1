@@ -232,9 +232,9 @@ bool forwardSubstitutionVector(arr v_f, arr v_b, arr v_c, int sizeVector)
 	for (int i= 1; i< sizeVector; i++)
 	{
 		coef = 1/v_b[i-1];
-		v_a[i] -= coef*v_b[i-1]; // XXX : à enlever plus tard .
+		v_a[i] += coef*v_b[i-1]; // XXX : à enlever plus tard .
 		v_b[i] -= coef;
-		v_f[i] -= coef*v_f[i-1];
+		v_f[i] += coef*v_f[i-1];
 		printf("a%d : %f \t b%d : %f \t c%d : %f \n",i, v_a[i],i, v_b[i],i, v_c[i]); // XXX : a enlever plus tard
 	}
 

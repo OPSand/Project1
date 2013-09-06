@@ -510,7 +510,7 @@ If the matrix is symmetric, so that
 \end_inset
 
  and 
-\begin_inset Formula $x_{i}c_{i-1}=\frac{1}{b_{i-1}^{*}}=x_{i}$
+\begin_inset Formula $x_{i}c_{i-1}=\frac{1}{b_{i-1}^{*}}=-x_{i}=y_{i}$
 \end_inset
 
 .
@@ -523,7 +523,11 @@ If the matrix is symmetric, so that
 \end_inset
 
 ).
- The algorithm will then look like this:
+ The algorithm will then look like this for 
+\begin_inset Formula $k=-1$
+\end_inset
+
+:
 \end_layout
 
 \begin_layout Standard
@@ -539,7 +543,7 @@ For
 \end_layout
 
 \begin_layout Enumerate
-\begin_inset Formula $x_{i}=\frac{1}{b_{i-1}^{*}}\;$
+\begin_inset Formula $y_{i}=\frac{1}{b_{i-1}^{*}}\;$
 \end_inset
 
  (
@@ -550,7 +554,7 @@ For
 \end_layout
 
 \begin_layout Enumerate
-\begin_inset Formula $b_{i}=b_{i}-x_{i}\;$
+\begin_inset Formula $b_{i}=b_{i}-y_{i}\;$
 \end_inset
 
 (
@@ -561,7 +565,7 @@ For
 \end_layout
 
 \begin_layout Enumerate
-\begin_inset Formula $\widetilde{b}_{i}=\widetilde{b}_{i}-x_{i}\widetilde{b}_{i-1}\;$
+\begin_inset Formula $\widetilde{b}_{i}=\widetilde{b}_{i}+y_{i}\widetilde{b}_{i-1}\;$
 \end_inset
 
 (
@@ -584,7 +588,7 @@ For
 \end_layout
 
 \begin_layout Enumerate
-\begin_inset Formula $\widetilde{b}_{i}=\widetilde{b}_{i}\pm b_{i+1}\;$
+\begin_inset Formula $\widetilde{b}_{i}=\widetilde{b}_{i}+\widetilde{b}_{i+1}\;$
 \end_inset
 
 (

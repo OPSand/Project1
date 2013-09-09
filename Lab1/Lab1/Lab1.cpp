@@ -22,7 +22,7 @@ int exB(int sizeVector);
 TYPE maxRelError(arr numericalVector, arr analyticVector, int n);
 arr analyticVector(int n, TYPE h);
 TYPE u(TYPE x);
-void exE();
+void exE(int sizeVector);
 
 int main(int argc, char* argv[])
 {
@@ -41,9 +41,12 @@ int main(int argc, char* argv[])
 #ifdef EXA
 		printf("Part A \n");
 		exA(iNbRow);
-#else 
+#elseifdef exB
 		printf ("Part B \n");
 		exB(iNbRow);
+#else 
+		cout << "Part E" << endl;
+		exE(iNbRow);
 #endif
 		printf( "\n Press q to leave \n" );	
 		leavingKey = getchar();
@@ -331,7 +334,7 @@ matr rowMult(matr A, matr B)
 		// resulting n x m matrix
 		int n = A.n_rows;
 		int m = B.n_cols;
-		C = matr(n, m);
+		matr C = matr(n, m);
 
 		for( int i = 0; i < n; i++ )
 		{
@@ -349,18 +352,65 @@ matr rowMult(matr A, matr B)
 		return C;
 }
 
-void exE()
+matr colMult(matr A, matr B)
+{
+	if( A.n_cols != B.n_rows )
+	{
+		throw new exception("matrix multiplication undefined - dimensions do not match");
+	}
+
+	// else (A*B is defined):
+
+		int k_max = A.n_cols; // this dimension is cancelled in the multiplication
+
+		// resulting n x m matrix
+		int n = A.n_rows;
+		int m = B.n_cols;
+		matr C = matr(n, m);
+	
+		for( int j = 0; j < m; j++ )
+		{
+			for( int i = 0; i < n; i++ )	
+			{
+				TYPE sum = 0;
+				for( int k = 0; k < k_max; k++ )
+				{
+					sum += A(i,k)*B(k, j);
+				}
+				C(i, j) = sum;
+			}
+		}
+
+		return C;
+}
+
+void exE(int sizeVector)
 {
 	// initialize n x n matrices to multiply
-	int n = pow(10, 4);
+	int n = sizeVector;
 	matr A = randu<matr>(n, n);
 	matr B = randu<matr>(n, n);
+	matr C;
 
 	// time measurement
 	clock_t start, finish;
 	TYPE tRow, tCol;
 
+	// row major
+	start = clock();
+	C = rowMult(A, B); // OK because the 
+	finish = clock();
+	tRow = elapsedTime(start, finish);
 
+	cout << "Row major, time elapsed: " << tRow << endl;
+
+	// column major
+	start = clock();
+	C = colMult(A, B);
+	finish = clock();
+	tCol = elapsedTime(start, finish);
+
+	cout << "Row major, time elapsed: " << tRow << endl;
 }
 
 #pragma endregion

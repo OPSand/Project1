@@ -325,21 +325,21 @@ TYPE elapsedTime(clock_t start, clock_t finish)
 	return (finish - start)/CLOCKS_PER_SEC;
 }
 
-matr rowMult(matr A, matr B)
+TYPE** rowMult(TYPE** A, TYPE** B, int Arows, int Acols, int Brows, int Bcols)
 {
-	if( A.n_cols != B.n_rows )
+	if( Acols != Brows )
 	{
 		throw new exception("matrix multiplication undefined - dimensions do not match");
 	}
 
 	// else (A*B is defined):
 
-		int k_max = A.n_cols; // this dimension is cancelled in the multiplication
+		int k_max = Acols; // this dimension is cancelled in the multiplication
 
 		// resulting n x m matrix
-		int n = A.n_rows;
-		int m = B.n_cols;
-		matr C = matr(n, m);
+		int n = Arows;
+		int m = Bcols;
+		TYPE** C = dynamicalMatrix(n, m);
 
 		for( int i = 0; i < n; i++ )
 		{
@@ -348,30 +348,30 @@ matr rowMult(matr A, matr B)
 				TYPE sum = 0;
 				for( int k = 0; k < k_max; k++ )
 				{
-					sum += A(i,k)*B(k, j);
+					sum += A[i][k]*B[k][j];
 				}
-				C(i, j) = sum;
+				C[i][j] = sum;
 			}
 		}
 
 		return C;
 }
 
-matr colMult(matr A, matr B)
+TYPE** colMult(TYPE** A, TYPE** B, int Arows, int Acols, int Brows, int Bcols)
 {
-	if( A.n_cols != B.n_rows )
+	if( Acols != Brows )
 	{
 		throw new exception("matrix multiplication undefined - dimensions do not match");
 	}
 
 	// else (A*B is defined):
 
-		int k_max = A.n_cols; // this dimension is cancelled in the multiplication
+		int k_max = Acols; // this dimension is cancelled in the multiplication
 
 		// resulting n x m matrix
-		int n = A.n_rows;
-		int m = B.n_cols;
-		matr C = matr(n, m);
+		int n = Arows;
+		int m = Bcols;
+		TYPE** C = dynamicalMatrix(n, m);
 	
 		for( int j = 0; j < m; j++ )
 		{
@@ -380,9 +380,9 @@ matr colMult(matr A, matr B)
 				TYPE sum = 0;
 				for( int k = 0; k < k_max; k++ )
 				{
-					sum += A(i,k)*B(k, j);
+					sum += A[i][k]*B[k][j];
 				}
-				C(i, j) = sum;
+				C[i][j] = sum;
 			}
 		}
 
@@ -395,9 +395,9 @@ void exE(int sizeVector)
 
 	// initialize n x n matrices to multiply
 	int n = sizeVector;
-	matr A = randu<matr>(n, n);
-	matr B = randu<matr>(n, n);
-	matr C;
+	TYPE** A = randomMatrix(n, n);
+	TYPE** B = randomMatrix(n, n);
+	TYPE** C;
 
 	// time measurement
 	clock_t start, finish;
@@ -407,7 +407,7 @@ void exE(int sizeVector)
 
 	// row major
 	start = clock();
-	C = rowMult(A, B); // OK because the 
+	C = rowMult(A, B, n, n, n, n);
 	finish = clock();
 	tRow = elapsedTime(start, finish);
 
@@ -415,7 +415,7 @@ void exE(int sizeVector)
 
 	// column major
 	start = clock();
-	C = colMult(A, B);
+	C = colMult(A, B, n, n, n, n);
 	finish = clock();
 	tCol = elapsedTime(start, finish);
 

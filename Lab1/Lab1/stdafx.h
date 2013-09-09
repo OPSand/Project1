@@ -10,6 +10,7 @@
 #include <stdio.h>
 #include <tchar.h>
 #include "armadillo"
+#include "lib.h"
 
 // We only have to modify this line to change the type of all of our variables
 #define TYPE double

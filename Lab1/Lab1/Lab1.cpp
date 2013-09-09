@@ -22,6 +22,7 @@ int exB(int sizeVector);
 TYPE maxRelError(arr numericalVector, arr analyticVector, int n);
 arr analyticVector(int n, TYPE h);
 TYPE u(TYPE x);
+void exE();
 
 int main(int argc, char* argv[])
 {
@@ -262,6 +263,8 @@ bool backwardSubstitutionVector(arr &v_f, arr &v_b, arr v_c, arr &v_Solution, in
 }
 #pragma endregion
 
+#pragma region Exercise C
+
 TYPE maxRelError(arr numericalVector, arr analyticVector, int n) {
 	TYPE zeroValue = -1000; // the logarithm of anything should be greater than this
 	TYPE e_max = zeroValue;
@@ -304,3 +307,60 @@ arr analyticVector(int n, TYPE h) {
 TYPE u(TYPE x) {
 	return (1.0 - (1.0 - exp(-10.0))*x - exp(-10.0*x));
 }
+
+#pragma endregion
+
+#pragma region Exercise E
+
+TYPE elapsedTime(clock_t start, clock_t finish)
+{
+	return (finish - start)/CLOCKS_PER_SEC;
+}
+
+matr rowMult(matr A, matr B)
+{
+	if( A.n_cols != B.n_rows )
+	{
+		throw new exception("matrix multiplication undefined - dimensions do not match");
+	}
+
+	// else (A*B is defined):
+
+		int k_max = A.n_cols; // this dimension is cancelled in the multiplication
+
+		// resulting n x m matrix
+		int n = A.n_rows;
+		int m = B.n_cols;
+		C = matr(n, m);
+
+		for( int i = 0; i < n; i++ )
+		{
+			for( int j = 0; j < m; j++ )
+			{
+				TYPE sum = 0;
+				for( int k = 0; k < k_max; k++ )
+				{
+					sum += A(i,k)*B(k, j);
+				}
+				C(i, j) = sum;
+			}
+		}
+
+		return C;
+}
+
+void exE()
+{
+	// initialize n x n matrices to multiply
+	int n = pow(10, 4);
+	matr A = randu<matr>(n, n);
+	matr B = randu<matr>(n, n);
+
+	// time measurement
+	clock_t start, finish;
+	TYPE tRow, tCol;
+
+
+}
+
+#pragma endregion

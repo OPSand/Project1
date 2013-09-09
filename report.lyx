@@ -60,16 +60,93 @@
 
 \begin_body
 
-\begin_layout Standard
-title goes here
+\begin_layout Title
+Project 1, FYS 3150 / 4150, fall 2013
+\end_layout
+
+\begin_layout Author
+Nathalie Bonatout and Odd Petter Sand
+\end_layout
+
+\begin_layout Section
+Introduction
 \end_layout
 
 \begin_layout Standard
-introduction
+In this project we will solve the one-dimensional Poissson equation with
+ Dirichlet boundary conditions by rewriting it as a set of linear equations.
 \end_layout
 
 \begin_layout Standard
-a)
+To be more explicit we will solve the equation 
+\begin_inset Formula 
+\[
+-u''(x)=f(x),\hspace{0.5cm}x\in(0,1),\hspace{0.5cm}u(0)=u(1)=0.
+\]
+
+\end_inset
+
+and we define the discretized approximation to 
+\begin_inset Formula $u$
+\end_inset
+
+ as 
+\begin_inset Formula $v_{i}$
+\end_inset
+
+ with grid points 
+\begin_inset Formula $x_{i}=ih$
+\end_inset
+
+ in the interval from 
+\begin_inset Formula $x_{0}=0$
+\end_inset
+
+ to 
+\begin_inset Formula $x_{n+1}=1$
+\end_inset
+
+.
+ The step length or spacing is defined as 
+\begin_inset Formula $h=1/(n+1)$
+\end_inset
+
+.
+ We have then the boundary conditions 
+\begin_inset Formula $v_{0}=v_{n+1}=0$
+\end_inset
+
+.
+ We approximate the second derivative of 
+\begin_inset Formula $u$
+\end_inset
+
+ with 
+\begin_inset Formula 
+\[
+-\frac{v_{i+1}+v_{i-1}-2v_{i}}{h^{2}}=f_{i}\hspace{0.5cm}\mathrm{for}\hspace{0.1cm}i=1,\dots,n,
+\]
+
+\end_inset
+
+where 
+\begin_inset Formula $f_{i}=f(x_{i})$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+(Author's note: This text, and the text introducing the various exercises,
+ is taken from the project description provided at the course website.)
+\end_layout
+
+\begin_layout Section
+Exercises
+\end_layout
+
+\begin_layout Subsection
+Exercise a)
 \end_layout
 
 \begin_layout Standard
@@ -220,8 +297,8 @@ and remembering that
 which is what we wanted to show.
 \end_layout
 
-\begin_layout Standard
-b)
+\begin_layout Subsection
+Exercise b)
 \end_layout
 
 \begin_layout Standard
@@ -406,6 +483,13 @@ For
 \end_layout
 
 \begin_layout Standard
+\begin_inset Formula $\widetilde{b}_{n}=\frac{\widetilde{b}_{n}}{b_{n}}\;(1)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
 For 
 \begin_inset Formula $i$
 \end_inset
@@ -497,28 +581,43 @@ If the matrix is symmetric, so that
 \end_inset
 
 .
- If 
+\end_layout
+
+\begin_layout Standard
+If 
 \begin_inset Formula $a_{i}=c_{i-1}=k$
 \end_inset
 
-, a constant value which is the same for every row, where 
-\begin_inset Formula $k\in\{1,$
+ for all 
+\begin_inset Formula $i$
 \end_inset
 
--1}, then 
+, we have a special case where 
+\begin_inset Formula $k=\pm1$
+\end_inset
+
+.
+ Then 
+\begin_inset Formula $x_{i}=\pm\frac{1}{b_{i-1}^{*}}$
+\end_inset
+
+, 
 \begin_inset Formula $k^{2}=1$
 \end_inset
 
  and 
-\begin_inset Formula $x_{i}c_{i-1}=\frac{1}{b_{i-1}^{*}}=-x_{i}=y_{i}$
+\begin_inset Formula $x_{i}c_{i-1}=\frac{1}{b_{i-1}^{*}}=-x_{i}\equiv y_{i}$
 \end_inset
 
 .
- Furthermore, 
-\begin_inset Formula $c_{i}\widetilde{b}_{i+1}=k\widetilde{b}_{i+1}=\pm\widetilde{b}_{i+1}$
+\end_layout
+
+\begin_layout Standard
+Furthermore, 
+\begin_inset Formula $c_{i}\widetilde{b}_{i+1}=k\widetilde{b}_{i+1}=\mp\widetilde{b}_{i+1}$
 \end_inset
 
- (depending on the sign of 
+ (note: opposite of the sign of 
 \begin_inset Formula $k$
 \end_inset
 
@@ -573,6 +672,13 @@ For
 \end_inset
 
 )
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\widetilde{b}_{n}=\frac{\widetilde{b}_{n}}{b_{n}}\;(1)$
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -638,11 +744,424 @@ For
 \end_layout
 
 \begin_layout Standard
-c)
+This gives a total running time of 
+\begin_inset Formula $6n$
+\end_inset
+
+ for this implementation of the algorithm, which we ended up using for this
+ project.
+\end_layout
+
+\begin_layout Standard
+<INSERT RESULTS + PLOTS HERE>
+\end_layout
+
+\begin_layout Subsection
+Exercise c)
+\end_layout
+
+\begin_layout Standard
+In thie exercise we will compute the relative error in the data set 
+\begin_inset Formula $i=1,\dots,n$
+\end_inset
+
+,by setting up 
+\begin_inset Formula 
+\[
+\epsilon_{i}=log_{10}\left(\left|\frac{v_{i}-u_{i}}{u_{i}}\right|\right),
+\]
+
+\end_inset
+
+as function of 
+\begin_inset Formula $log_{10}(h)$
+\end_inset
+
+ for the function values 
+\begin_inset Formula $u_{i}$
+\end_inset
+
+ and 
+\begin_inset Formula $v_{i}$
+\end_inset
+
+.
+ For each step length we will extract the max value of the relative error.
 \end_layout
 
 \begin_layout Standard
 ...
+\end_layout
+
+\begin_layout Subsection
+Exercise d)
+\end_layout
+
+\begin_layout Standard
+(TODO: Change the text below to sound less like an exercise and more like
+ a description.)
+\end_layout
+
+\begin_layout Standard
+Compare your results with those from the LU decomposition codes for the
+ matrix of sizes 
+\begin_inset Formula $10\times10$
+\end_inset
+
+, 
+\begin_inset Formula $100\times100$
+\end_inset
+
+ and 
+\begin_inset Formula $1000\times1000$
+\end_inset
+
+.
+ Here you should use the library functions provided on the webpage of the
+ course.
+ Use for example the unix function 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+em
+\end_layout
+
+\end_inset
+
+ time
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+ when you run your codes and compare the time usage between LU decomposition
+ and your tridiagonal solver.
+ Alternatively, you can use the functions in C++, Fortran or Python that
+ measure the time used.
+\end_layout
+
+\begin_layout Standard
+Make a table of the results and comment the differences in execution time
+ How many floating point operations does the LU decomposition use to solve
+ the set of linear equations? Can you run the standard LU decomposition
+ for a matrix of the size 
+\begin_inset Formula $10^{5}\times10^{5}$
+\end_inset
+
+? Comment your results.
+\end_layout
+
+\begin_layout Standard
+To compute the elapsed time in c++ you can use the following statements
+ 
+\begin_inset listings
+lstparams "title={Time in C++}"
+inline false
+status collapsed
+
+\begin_layout Plain Layout
+
+using namespace std;
+\end_layout
+
+\begin_layout Plain Layout
+
+...
+\end_layout
+
+\begin_layout Plain Layout
+
+#include "time.h"   //  you have to include the time.h header
+\end_layout
+
+\begin_layout Plain Layout
+
+int main()
+\end_layout
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\begin_layout Plain Layout
+
+    // declarations of variables 
+\end_layout
+
+\begin_layout Plain Layout
+
+    ...
+\end_layout
+
+\begin_layout Plain Layout
+
+    clock_t start, finish;  //  declare start and final time
+\end_layout
+
+\begin_layout Plain Layout
+
+    start = clock();
+\end_layout
+
+\begin_layout Plain Layout
+
+    // your code is here, do something and then get final time
+\end_layout
+
+\begin_layout Plain Layout
+
+    finish = clock();
+\end_layout
+
+\begin_layout Plain Layout
+
+    ( (finish - start)/CLOCKS_PER_SEC );
+\end_layout
+
+\begin_layout Plain Layout
+
+...
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+...
+\end_layout
+
+\begin_layout Subsection
+Exercise e)
+\end_layout
+
+\begin_layout Standard
+In this exercise we are investigating matrix multiplication in row major
+ order versus column major order with regards to running time.
+\end_layout
+
+\begin_layout Standard
+The task here is to write a small program which sets up two random (use
+ the ran0 function in the library lib.cpp to initialize the matrix) double
+ precision valued matrices of dimension 
+\begin_inset Formula $5000\times5000$
+\end_inset
+
+.
+ (NOTE: The original value of 
+\begin_inset Formula $10^{4}\times10^{4}$
+\end_inset
+
+ proved too memory intensive for our poor laptops.)
+\end_layout
+
+\begin_layout Standard
+The multiplication of two matrices 
+\begin_inset Formula ${\bf A}={\bf BC}$
+\end_inset
+
+ could then take the following form in standard row-major order 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstset
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\end_inset
+
+language=c++
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset listings
+inline false
+status collapsed
+
+\begin_layout Plain Layout
+
+      for(j=0 ; j < n ; j++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+         for(k=0 ; k < n ; k++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+            a[i][j]+=b[i][k]*c[k][j]
+\end_layout
+
+\begin_layout Plain Layout
+
+         }
+\end_layout
+
+\begin_layout Plain Layout
+
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+   }  
+\end_layout
+
+\end_inset
+
+ and in a column-major order as 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstset
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\end_inset
+
+language=c++
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset listings
+inline false
+status collapsed
+
+\begin_layout Plain Layout
+
+      for(i=0 ; i < n ; i++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+         for(k=0 ; k < n ; k++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+            a[i][j]+=b[i][k]*c[k][j]
+\end_layout
+
+\begin_layout Plain Layout
+
+         }
+\end_layout
+
+\begin_layout Plain Layout
+
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+   }  
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+(NOTE: We implemented this using dynamic memory allocation, as lib.cpp proved
+ difficult to add to the project in Visual C++.)
+\end_layout
+
+\begin_layout Section
+Conclusion
+\end_layout
+
+\begin_layout Standard
+In this project we learned that...
+\end_layout
+
+\begin_layout Subsection
+Critique
+\end_layout
+
+\begin_layout Standard
+We would like to provide the following items of feedback for future versions
+ of this project:
+\end_layout
+
+\begin_layout Itemize
+lib.cpp sucks!
+\end_layout
+
+\begin_layout Itemize
+we need more RAM.
+ you made our laptops feel sad.
+\end_layout
+
+\begin_layout Itemize
+???
 \end_layout
 
 \end_body

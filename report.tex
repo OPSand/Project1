@@ -1,0 +1,298 @@
+%% LyX 2.0.6 created this file.  For more info, see http://www.lyx.org/.
+%% Do not edit unless you really know what you are doing.
+\documentclass[english]{article}
+\usepackage[T1]{fontenc}
+\usepackage{listings}
+\setlength{\parskip}{\smallskipamount}
+\setlength{\parindent}{0pt}
+\usepackage{amssymb}
+\usepackage{setspace}
+\doublespacing
+\usepackage{babel}
+\usepackage{xunicode}
+\begin{document}
+
+\title{Project 1, FYS 3150 / 4150, fall 2013}
+
+
+\author{Nathalie Bonatout and Odd Petter Sand}
+
+\maketitle
+
+\section{Introduction}
+
+In this project we will solve the one-dimensional Poissson equation
+with Dirichlet boundary conditions by rewriting it as a set of linear
+equations.
+
+To be more explicit we will solve the equation 
+\[
+-u''(x)=f(x),\hspace{0.5cm}x\in(0,1),\hspace{0.5cm}u(0)=u(1)=0.
+\]
+and we define the discretized approximation to $u$ as $v_{i}$ with
+grid points $x_{i}=ih$ in the interval from $x_{0}=0$ to $x_{n+1}=1$.
+The step length or spacing is defined as $h=1/(n+1)$. We have then
+the boundary conditions $v_{0}=v_{n+1}=0$. We approximate the second
+derivative of $u$ with 
+\[
+-\frac{v_{i+1}+v_{i-1}-2v_{i}}{h^{2}}=f_{i}\hspace{0.5cm}\mathrm{for}\hspace{0.1cm}i=1,\dots,n,
+\]
+where $f_{i}=f(x_{i})$.
+
+(Author's note: This text, and the text introducing the various exercises,
+is taken from the project description provided at the course website.)
+
+
+\section{Exercises}
+
+
+\subsection{Exercise a)}
+
+We start with the given equation
+
+$-\frac{v_{i-1}-2v_{i}+v_{i+1}}{h^{2}}=f_{i}$
+
+where $i\in[1,n]\cap\mathbb{N}$ and $n\in\mathbb{N}$. We will assume
+that $n\geqslant3$ and that $v_{0}=v_{n+1}=0$.
+
+$-v_{i-1}+2v_{i}-v_{i+1}=h^{2}f_{i}\equiv\widetilde{b}_{i}$
+
+$\left[\begin{array}{ccc}
+-1 & 2 & -1\end{array}\right]\left[\begin{array}{c}
+v_{i-1}\\
+v_{i}\\
+v_{i+1}
+\end{array}\right]=\widetilde{b}_{i}$
+
+Now we expand these vectors from 3 elements to $n$ elements. Note
+that the $i$th element of the row vector should be 2 and the $i$th
+element of the column vector should be $v_{i}$ after the expansion:
+
+$\left[\begin{array}{ccccccc}
+0 & \cdots & -1 & 2 & -1 & \cdots & 0\end{array}\right]\left[\begin{array}{c}
+v_{1}\\
+\vdots\\
+v_{i-1}\\
+v_{i}\\
+v_{i+1}\\
+\vdots\\
+v_{n}
+\end{array}\right]=\widetilde{b}_{i}$
+
+Note that in the row vector 2 can very well be the first or last element,
+in which case the preceding presentation can be a little misleading.
+We further recognize the row vector as the $i$th row of the $n\times n$
+matrix $\mathbf{A}$ (defined such that $A_{ij}=2\delta_{ij}-\delta_{i(j-1)}-\delta_{i(j+1)}$
+) and get the inner product
+
+$\mathbf{A}_{i}\cdot\mathbf{v}=\widetilde{b}_{i}$
+
+and remembering that $i\in[1,n]$, by the definition of matrix multiplication
+
+$\mathbf{A}\mathbf{v}=\mathbf{\widetilde{b}}$
+
+which is what we wanted to show.
+
+
+\subsection{Exercise b)}
+
+The algorithm we will use is as follows: First we do forward subsitution
+by subtracting from the current row a multiple of the row before it. 
+
+$A_{i}=A_{i}-x_{i}A_{i-1}$
+
+Here, $x_{i}$ is the factor that cause the term $a_{i}$ to cancel
+out. Before the first step, the rows $i-1$ and $i$ look like this
+(the {*} indicates a value that has been changed by the algoritm)
+
+$\begin{array}{ccccccc}
+\cdots & 0 & b_{i-1}^{*} & c_{i-1} & 0 & 0 & \cdots\\
+\cdots & 0 & a_{i} & b_{i} & c_{i} & 0 & \cdots
+\end{array}$
+
+and our goal is that it look like this after the forward substitution
+
+$\begin{array}{ccccccc}
+\cdots & 0 & b_{i-1}^{*} & c_{i-1} & 0 & 0 & \cdots\\
+\cdots & 0 & 0 & b_{i}^{*} & c_{i} & 0 & \cdots
+\end{array}$
+
+(note that $c_{i}$ is unchanged). When we reach the bottom, we do
+a backward subsitution by adding to the current row a multiple of
+the row below it and then dividing the last element by itself to make
+the last element equal to 1:
+
+$A_{i}=A_{i}-c_{i}A_{i+1}$
+
+$A_{i}=\frac{A_{i}}{b_{i}^{*}}$
+
+That is to say, we go from
+
+$\begin{array}{cccccc}
+\cdots & 0 & b_{i}^{*} & c_{i} & 0 & \cdots\\
+\cdots & 0 & 0 & 1 & 0 & \cdots
+\end{array}$
+
+to
+
+$\begin{array}{cccccc}
+\cdots & 0 & 1 & 0 & 0 & \cdots\\
+\cdots & 0 & 0 & 1 & 0 & \cdots
+\end{array}$
+
+Naturally, we also have to do equivalent operations on the vector
+\textbf{$\mathbf{\widetilde{b}}$} on the other side of the equation.
+We will not calculate any unnecessary values, i.e. values that will
+not be used by the program later on. Hence the algoritm looks like
+this (number of flops in parantheses):
+
+For $i$ : $2\longrightarrow n$
+\begin{enumerate}
+\item $x_{i}=\frac{a_{i}}{b_{i-1}^{*}}\;$ ($n$)
+\item $b_{i}=b_{i}-x_{i}c_{i-1}\;$($2n$)
+\item $\widetilde{b}_{i}=\widetilde{b}_{i}-x_{i}\widetilde{b}_{i-1}\;$($2n$)
+\end{enumerate}
+$\widetilde{b}_{n}=\frac{\widetilde{b}_{n}}{b_{n}}\;(1)$
+
+For $i$ : $n-1\longrightarrow1$
+\begin{enumerate}
+\item $\widetilde{b}_{i}=\widetilde{b}_{i}-c_{i}\widetilde{b}_{i+1}\;$($2n$)
+\item $\widetilde{b}_{i}=\frac{\widetilde{b}_{i}}{b_{i}}$$\;$ ($n$)
+\end{enumerate}
+This makes the total running time of the algorihm $8n$ (actually,
+it is $8(n-1)$, but we are mostly concerned with the performance
+for large $n$, where $n\approx n-1$).
+
+If the matrix is symmetric, so that $a_{i}=c_{i-1},$ then $x_{i}c_{i-1}=\frac{a_{i}^{2}}{b_{i-1}^{*}}$.
+
+If $a_{i}=c_{i-1}=k$ for all $i$, we have a special case where $k=\pm1$.
+Then $x_{i}=\pm\frac{1}{b_{i-1}^{*}}$, $k^{2}=1$ and $x_{i}c_{i-1}=\frac{1}{b_{i-1}^{*}}=-x_{i}\equiv y_{i}$.
+
+Furthermore, $c_{i}\widetilde{b}_{i+1}=k\widetilde{b}_{i+1}=\mp\widetilde{b}_{i+1}$
+(note: opposite of the sign of $k$). The algorithm will then look
+like this for $k=-1$:
+
+For $i$ : $2\longrightarrow n$
+\begin{enumerate}
+\item $y_{i}=\frac{1}{b_{i-1}^{*}}\;$ ($n$)
+\item $b_{i}=b_{i}-y_{i}\;$($n$)
+\item $\widetilde{b}_{i}=\widetilde{b}_{i}+y_{i}\widetilde{b}_{i-1}\;$($2n$)
+\end{enumerate}
+$\widetilde{b}_{n}=\frac{\widetilde{b}_{n}}{b_{n}}\;(1)$
+
+For $i$ : $n-1\longrightarrow1$
+\begin{enumerate}
+\item $\widetilde{b}_{i}=\widetilde{b}_{i}+\widetilde{b}_{i+1}\;$($n$)
+\item $\widetilde{b}_{i}=\frac{\widetilde{b}_{i}}{b_{i}}$$\;$ ($n$)
+\end{enumerate}
+This gives a total running time of $6n$ for this implementation of
+the algorithm, which we ended up using for this project.
+
+<INSERT RESULTS + PLOTS HERE>
+
+
+\subsection{Exercise c)}
+
+In thie exercise we will compute the relative error in the data set
+$i=1,\dots,n$,by setting up 
+\[
+\epsilon_{i}=log_{10}\left(\left|\frac{v_{i}-u_{i}}{u_{i}}\right|\right),
+\]
+as function of $log_{10}(h)$ for the function values $u_{i}$ and
+$v_{i}$. For each step length we will extract the max value of the
+relative error.
+
+...
+
+
+\subsection{Exercise d)}
+
+(TODO: Change the text below to sound less like an exercise and more
+like a description.)
+
+Compare your results with those from the LU decomposition codes for
+the matrix of sizes $10\times10$, $100\times100$ and $1000\times1000$.
+Here you should use the library functions provided on the webpage
+of the course. Use for example the unix function {\em time} when
+you run your codes and compare the time usage between LU decomposition
+and your tridiagonal solver. Alternatively, you can use the functions
+in C++, Fortran or Python that measure the time used.
+
+Make a table of the results and comment the differences in execution
+time How many floating point operations does the LU decomposition
+use to solve the set of linear equations? Can you run the standard
+LU decomposition for a matrix of the size $10^{5}\times10^{5}$? Comment
+your results.
+
+To compute the elapsed time in c++ you can use the following statements
+\begin{lstlisting}[title={Time in C++}]
+using namespace std;
+...
+#include "time.h"   //  you have to include the time.h header
+int main()
+{
+    // declarations of variables 
+    ...
+    clock_t start, finish;  //  declare start and final time
+    start = clock();
+    // your code is here, do something and then get final time
+    finish = clock();
+    ( (finish - start)/CLOCKS_PER_SEC );
+...
+\end{lstlisting}
+
+
+...
+
+
+\subsection{Exercise e)}
+
+In this exercise we are investigating matrix multiplication in row
+major order versus column major order with regards to running time.
+
+The task here is to write a small program which sets up two random
+(use the ran0 function in the library lib.cpp to initialize the matrix)
+double precision valued matrices of dimension $5000\times5000$. (NOTE:
+The original value of $10^{4}\times10^{4}$ proved too memory intensive
+for our poor laptops.)
+
+The multiplication of two matrices ${\bf A}={\bf BC}$ could then
+take the following form in standard row-major order \lstset{language=c++}
+\begin{lstlisting}
+      for(j=0 ; j < n ; j++) {
+         for(k=0 ; k < n ; k++) {
+            a[i][j]+=b[i][k]*c[k][j]
+         }
+      }
+   }  
+\end{lstlisting}
+ and in a column-major order as \lstset{language=c++} 
+\begin{lstlisting}
+      for(i=0 ; i < n ; i++) {
+         for(k=0 ; k < n ; k++) {
+            a[i][j]+=b[i][k]*c[k][j]
+         }
+      }
+   }  
+\end{lstlisting}
+
+
+(NOTE: We implemented this using dynamic memory allocation, as lib.cpp
+proved difficult to add to the project in Visual C++.)
+
+
+\section{Conclusion}
+
+In this project we learned that...
+
+
+\subsection{Critique}
+
+We would like to provide the following items of feedback for future
+versions of this project:
+\begin{itemize}
+\item lib.cpp sucks!
+\item we need more RAM. you made our laptops feel sad.
+\item ???\end{itemize}
+
+\end{document}

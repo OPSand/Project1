@@ -1,0 +1,1052 @@
+#LyX file created by tex2lyx 2.0.6
+\lyxformat 413
+\begin_document
+\begin_header
+\textclass article
+\begin_preamble
+
+\usepackage{listings}\usepackage{a4wide}\usepackage[dvips]{epsfig}\usepackage{cite}% [2,3,4] --> [2--4]
+\usepackage{shadow}
+
+
+
+\lstset{language=c++}
+\lstset{alsolanguage=[90]Fortran}
+\lstset{basicstyle=\small}
+\lstset{backgroundcolor=}
+\lstset{frame=single}
+\lstset{stringstyle=\ttfamily}
+\lstset{keywordstyle=\bfseries}
+\lstset{commentstyle=\itshape}
+\lstset{showspaces=false}
+\lstset{showstringspaces=false}
+\lstset{showtabs=false}
+\lstset{breaklines}
+
+\end_preamble
+\options a4wide
+\use_default_options false
+\language english
+\language_package none
+\inputencoding auto
+\fontencoding T1
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\paperfontsize 11
+\spacing single
+\use_hyperref 1
+\pdf_bookmarks 1
+\pdf_bookmarksnumbered 0
+\pdf_bookmarksopen 0
+\pdf_bookmarksopenlevel 1
+\pdf_breaklinks 0
+\pdf_pdfborder 0
+\pdf_colorlinks 0
+\pdf_backref section
+\pdf_pdfusetitle 1
+\papersize default
+\use_geometry false
+\use_amsmath 2
+\use_esint 1
+\use_mhchem 0
+\use_mathdots 0
+\cite_engine basic
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\use_refstyle 0
+\fontcolor #0000ff
+\secnumdepth 3
+\tocdepth 2
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Section*
+
+Introduction to numerical projects
+\end_layout
+
+\begin_layout Standard
+
+Here follows a brief recipe and recommendation on how to write a report for each project. 
+\end_layout
+
+\begin_layout Itemize
+
+Give a short description of the nature of the problem and the eventual numerical methods you have used. 
+\end_layout
+
+\begin_layout Itemize
+
+Describe the algorithm you have used and/or developed. Here you may find it convenient to use pseudocoding. In many cases you can describe the algorithm in the program itself.
+\end_layout
+
+\begin_layout Itemize
+
+Include the source code of your program. Comment your program properly. 
+\end_layout
+
+\begin_layout Itemize
+
+If possible, try to find analytic solutions, or known limits in order to test your program when developing the code. 
+\end_layout
+
+\begin_layout Itemize
+
+Include your results either in figure form or in a table. Remember to label your results. All tables and figures should have relevant captions and labels on the axes. 
+\end_layout
+
+\begin_layout Itemize
+
+Try to evaluate the reliabilty and numerical stability/precision of your results. If possible, include a qualitative and/or quantitative discussion of the numerical stability, eventual loss of precision etc.
+\end_layout
+
+\begin_layout Itemize
+
+Try to give an interpretation of you results in your answers to the problems. 
+\end_layout
+
+\begin_layout Itemize
+
+Critique: if possible include your comments and reflections about the exercise, whether you felt you learnt something, ideas for improvements and other thoughts you've made when solving the exercise. We wish to keep this course at the interactive level and your comments can help us improve it. 
+\end_layout
+
+\begin_layout Itemize
+
+Try to establish a practice where you log your work at the computerlab. You may find such a logbook very handy at later stages in your work, especially when you don't properly remember what a previous test version of your program did. Here you could also record the time spent on solving the exercise, various algorithms you may have tested or other topics which you feel worthy of mentioning. 
+\end_layout
+
+\begin_layout Section*
+
+Format for electronic delivery of report and programs
+\end_layout
+
+\begin_layout Standard
+
+The preferred format for the report is a PDF file. You can also use DOC or postscript formats. As programming language we prefer that you choose between C/C++, Fortran2008 or Python. The following prescription should be followed when preparing the report: 
+\end_layout
+
+\begin_layout Itemize
+
+Use Devilry to hand in your projects, log in at 
+\begin_inset Flex Flex:URL
+status collapsed
+
+\begin_layout Plain Layout
+
+ http://devilry.ifi.uio.no
+\end_layout
+
+\end_inset
+
+ with your normal UiO username and password and choose either 'fys3150' or 'fys4150'. There you can load up the files within the deadline. 
+\end_layout
+
+\begin_layout Itemize
+
+Upload 
+\series bold
+only
+\family default
+\series default
+\shape default
+ the report file! For the source code file(s) you have developed please provide us with your link to your github domain. The report file should include all of your discussions and a list of the codes you have developed. Do not include library files which are available at the course homepage, unless you have made specific changes to them. 
+\end_layout
+
+\begin_layout Itemize
+
+Comments from us on your projects, approval or not, corrections to be made etc can be found under your Devilry domain and are only visible to you and the teachers of the course.
+\end_layout
+
+\begin_layout Standard
+
+Finally, we encourage you to work two and two together. Optimal working groups consist of 2-3 students. You can then hand in a common report.
+\end_layout
+
+\begin_layout Section*
+
+Project 1, deadline Monday 16 September 12pm (noon)
+\end_layout
+
+\begin_layout Standard
+
+The aim of this project is to get familiar with various matrix operations, from dynamic memory allocation to the usage of programs in the library package of the course. For Fortran users memory handling and most matrix and vector operations are included in the ANSI standard of Fortran 90/95. Array handling in Python is also rather trivial. For C++ user however, there are three possible options 
+\end_layout
+
+\begin_layout Enumerate
+
+Make your own functions for dynamic memory allocation of a vector and a matrix. Use then the library package lib.cpp with its header file lib.hpp for obtaining LU-decomposed matrices, solve linear equations etc. 
+\end_layout
+
+\begin_layout Enumerate
+
+Use the library package lib.cpp with its header file lib.hpp which includes a function 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+
+\backslash
+verb?matrix?
+\end_layout
+
+\end_inset
+
+ for dynamic memory allocation. This program package includes all the other functions discussed during the lectures for solving systems of linear equations, obtaining the determinant, getting the inverse etc. 
+\end_layout
+
+\begin_layout Enumerate
+
+We would recommend strongly that you use the C++ library Armadillo, to be found at 
+\begin_inset Flex Flex:URL
+status collapsed
+
+\begin_layout Plain Layout
+
+arma.sourceforge.net
+\end_layout
+
+\end_inset
+
+. We will discuss the usage of this library during the lectures of week 36 and 37. 
+\end_layout
+
+\begin_layout Standard
+
+Your program, whether it is written in C++, Python or Fortran2008, should include dynamic memory handling of matrices and vectors.
+\end_layout
+
+\begin_layout Standard
+
+The material needed for this project is covered by chapter 6 of the lecture notes, in particular section 6.4 and subsequent sections.
+\end_layout
+
+\begin_layout Standard
+
+Many important differential equations in the Sciences can be written as linear second-order differential equations 
+\begin_inset Formula \[
+\frac{d^2y}{dx^2}+k^2(x)y = f(x),
+\]
+\end_inset
+
+where 
+\begin_inset Formula $f$
+\end_inset
+
+ is normally called the inhomogeneous term and 
+\begin_inset Formula $k^2$
+\end_inset
+
+ is a real function.
+\end_layout
+
+\begin_layout Standard
+
+A classical equation from electromagnetism is Poisson's equation. The electrostatic potential 
+\begin_inset Formula $\Phi$
+\end_inset
+
+ is generated by a localized charge distribution 
+\begin_inset Formula $\rho ({\bf r})$
+\end_inset
+
+. In three dimensions it reads 
+\begin_inset Formula \[
+\nabla^2 \Phi = -4\pi \rho ({\bf r}).
+\]
+\end_inset
+
+With a spherically symmetric 
+\begin_inset Formula $\Phi$
+\end_inset
+
+ and 
+\begin_inset Formula $\rho ({\bf r})$
+\end_inset
+
+ the equations simplifies to a one-dimensional equation in 
+\begin_inset Formula $r$
+\end_inset
+
+, namely 
+\begin_inset Formula \[
+\frac{1}{r^2}\frac{d}{dr}\left(r^2\frac{d\Phi}{dr}\right) = -4\pi \rho(r),
+\]
+\end_inset
+
+which can be rewritten via a substitution 
+\begin_inset Formula $\Phi(r)= \phi(r)/r$
+\end_inset
+
+ as 
+\begin_inset Formula \[
+\frac{d^2\phi}{dr^2}= -4\pi\rho(r).
+\]
+\end_inset
+
+The inhomogeneous term 
+\begin_inset Formula $f$
+\end_inset
+
+ or source term is given by the charge distribution 
+\begin_inset Formula $\rho$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+We will rewrite this equation by letting 
+\begin_inset Formula $\phi\rightarrow u$
+\end_inset
+
+ and 
+\begin_inset Formula $r\rightarrow x$
+\end_inset
+
+. The general one-dimensional Poisson equation reads then 
+\begin_inset Formula \[
+-u''(x) = f(x).
+\]
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+
+(a) In this project we will solve the one-dimensional Poissson equation with Dirichlet boundary conditions by rewriting it as a set of linear equations.
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+
+To be more explicit we will solve the equation 
+\begin_inset Formula \[
+-u''(x) = f(x), \hspace{0.5cm} x\in(0,1), \hspace{0.5cm} u(0) = u(1) = 0.
+\]
+\end_inset
+
+and we define the discretized approximation to 
+\begin_inset Formula $u$
+\end_inset
+
+ as 
+\begin_inset Formula $v_i$
+\end_inset
+
+ with grid points 
+\begin_inset Formula $x_i=ih$
+\end_inset
+
+ in the interval from 
+\begin_inset Formula $x_0=0$
+\end_inset
+
+ to 
+\begin_inset Formula $x_{n+1}=1$
+\end_inset
+
+. The step length or spacing is defined as 
+\begin_inset Formula $h=1/(n+1)$
+\end_inset
+
+. We have then the boundary conditions 
+\begin_inset Formula $v_0 = v_{n+1} = 0$
+\end_inset
+
+. We approximate the second derivative of 
+\begin_inset Formula $u$
+\end_inset
+
+ with 
+\begin_inset Formula \[
+   -\frac{v_{i+1}+v_{i-1}-2v_i}{h^2} = f_i  \hspace{0.5cm} \mathrm{for} \hspace{0.1cm} i=1,\dots, n,
+\]
+\end_inset
+
+where 
+\begin_inset Formula $f_i=f(x_i)$
+\end_inset
+
+. Show that you can rewrite this equation as a linear set of equations of the form 
+\begin_inset Formula \[
+   {\bf A}{\bf v} = \tilde{{\bf b}},
+\]
+\end_inset
+
+where 
+\begin_inset Formula ${\bf A}$
+\end_inset
+
+ is an 
+\begin_inset Formula $n\times n$
+\end_inset
+
+ tridiagonal matrix which we rewrite as 
+\begin_inset Formula \begin{equation}
+    {\bf A} = \left(\begin{array}{cccccc}
+                           2& -1& 0 &\dots   & \dots &0 \\
+                           -1 & 2 & -1 &0 &\dots &\dots \\
+                           0&-1 &2 & -1 & 0 & \dots \\
+                           & \dots   & \dots &\dots   &\dots & \dots \\
+                           0&\dots   &  &-1 &2& -1 \\
+                           0&\dots    &  & 0  &-1 & 2 \\
+                      \end{array} \right)
+\end{equation}
+\end_inset
+
+and 
+\begin_inset Formula $\tilde{b}_i=h^2f_i$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+
+In our case we will assume that the source term is 
+\begin_inset Formula $f(x) = 100e^{-10x}$
+\end_inset
+
+, and keep the same interval and boundary conditions. Then the above differential equation has an analytic solution given by 
+\begin_inset Formula $u(x) = 1-(1-e^{-10})x-e^{-10x}$
+\end_inset
+
+ (convince yourself that this is correct by inserting the solution in the Poisson equation). We will compare our numerical solution with this analytic result in the next exercise.
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+
+(b) We can rewrite our matrix 
+\begin_inset Formula ${\bf A}$
+\end_inset
+
+ in terms of one-dimensional vectors 
+\begin_inset Formula $a,b,c$
+\end_inset
+
+ of length 
+\begin_inset Formula $1:n$
+\end_inset
+
+. Our linear equation reads 
+\begin_inset Formula \begin{equation}
+    {\bf A} = \left(\begin{array}{cccccc}
+                           b_1& c_1 & 0 &\dots   & \dots &\dots \\
+                           a_2 & b_2 & c_2 &\dots &\dots &\dots \\
+                           & a_3 & b_3 & c_3 & \dots & \dots \\
+                           & \dots   & \dots &\dots   &\dots & \dots \\
+                           &   &  &a_{n-2}  &b_{n-1}& c_{n-1} \\
+                           &    &  &   &a_n & b_n \\
+                      \end{array} \right)\left(\begin{array}{c}
+                           v_1\\
+                           v_2\\
+                           \dots \\
+                          \dots  \\
+                          \dots \\
+                           v_n\\
+                      \end{array} \right)
+  =\left(\begin{array}{c}
+                           \tilde{b}_1\\
+                           \tilde{b}_2\\
+                           \dots \\
+                           \dots \\
+                          \dots \\
+                           \tilde{b}_n\\
+                      \end{array} \right).
+\end{equation}
+\end_inset
+
+A tridiagonal matrix is a special form of banded matrix where all the elements are zero except for those on and immediately above and below the leading diagonal. The above tridiagonal system can be written as 
+\begin_inset Formula \begin{equation}
+  a_iv_{i-1}+b_iv_i+c_iv_{i+1} = \tilde{b}_i,
+\end{equation}
+\end_inset
+
+for 
+\begin_inset Formula $i=1,2,\dots,n$
+\end_inset
+
+. The algorithm for solving this set of equations is rather simple and requires two steps only, a decomposition and forward substitution and finally a backward substitution.
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+
+Your first task is to set up the algorithm for solving this set of linear equations. Find also the precise number of floating point operations needed to solve the above equations. Compare this with standard Gaussian elimination and LU decomposition.
+\end_layout
+
+\begin_layout Standard
+
+Then you should code the above algorithm and solve the problem for matrices of the size 
+\begin_inset Formula $10\times 10$
+\end_inset
+
+, 
+\begin_inset Formula $100\times 100$
+\end_inset
+
+ and 
+\begin_inset Formula $1000\times 1000$
+\end_inset
+
+. That means that you choose 
+\begin_inset Formula $n=10$
+\end_inset
+
+, 
+\begin_inset Formula $n=100$
+\end_inset
+
+ and 
+\begin_inset Formula $n=1000$
+\end_inset
+
+ grid points.
+\end_layout
+
+\begin_layout Standard
+
+Compare your results (make plots) with the analytic results for the different number of grid points in the interval 
+\begin_inset Formula $x\in(0,1)$
+\end_inset
+
+. The different number of grid points corresponds to different step lengths 
+\begin_inset Formula $h$
+\end_inset
+
+.
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+
+(c)
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+
+Compute the relative error in the data set 
+\begin_inset Formula $i=1,\dots, n$
+\end_inset
+
+,by setting up 
+\begin_inset Formula \[
+   \epsilon_i=log_{10}\left(\left|\frac{v_i-u_i}
+                 {u_i}\right|\right),
+\]
+\end_inset
+
+as function of 
+\begin_inset Formula $log_{10}(h)$
+\end_inset
+
+ for the function values 
+\begin_inset Formula $u_i$
+\end_inset
+
+ and 
+\begin_inset Formula $v_i$
+\end_inset
+
+. For each step length extract the max value of the relative error. Try to increase 
+\begin_inset Formula $n$
+\end_inset
+
+ to 
+\begin_inset Formula $n=10000$
+\end_inset
+
+ and 
+\begin_inset Formula $n=10^5$
+\end_inset
+
+. Make a table of the results and comment your results.
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+
+(d) Compare your results with those from the LU decomposition codes for the matrix of sizes 
+\begin_inset Formula $10\times 10$
+\end_inset
+
+, 
+\begin_inset Formula $100\times 100$
+\end_inset
+
+ and 
+\begin_inset Formula $1000\times 1000$
+\end_inset
+
+. Here you should use the library functions provided on the webpage of the course. Use for example the unix function 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+{
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+
+\backslash
+em
+\end_layout
+
+\end_inset
+
+ time
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+}
+\end_layout
+
+\end_inset
+
+ when you run your codes and compare the time usage between LU decomposition and your tridiagonal solver. Alternatively, you can use the functions in C++, Fortran or Python that measure the time used.
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+
+Make a table of the results and comment the differences in execution time How many floating point operations does the LU decomposition use to solve the set of linear equations? Can you run the standard LU decomposition for a matrix of the size 
+\begin_inset Formula $10^5\times 10^5$
+\end_inset
+
+? Comment your results.
+\end_layout
+
+\begin_layout Standard
+
+To compute the elapsed time in c++ you can use the following statements 
+\begin_inset listings
+lstparams "title={Time in C++}"
+inline false
+status collapsed
+
+\begin_layout Plain Layout
+
+using namespace std;
+\end_layout
+
+\begin_layout Plain Layout
+
+...
+\end_layout
+
+\begin_layout Plain Layout
+
+#include "time.h"   //  you have to include the time.h header
+\end_layout
+
+\begin_layout Plain Layout
+
+int main()
+\end_layout
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\begin_layout Plain Layout
+
+    // declarations of variables 
+\end_layout
+
+\begin_layout Plain Layout
+
+    ...
+\end_layout
+
+\begin_layout Plain Layout
+
+    clock_t start, finish;  //  declare start and final time
+\end_layout
+
+\begin_layout Plain Layout
+
+    start = clock();
+\end_layout
+
+\begin_layout Plain Layout
+
+    // your code is here, do something and then get final time
+\end_layout
+
+\begin_layout Plain Layout
+
+    finish = clock();
+\end_layout
+
+\begin_layout Plain Layout
+
+    ( (finish - start)/CLOCKS_PER_SEC );
+\end_layout
+
+\begin_layout Plain Layout
+
+...
+\end_layout
+
+\end_inset
+
+ Similarly, in Fortran, this simple example shows how to compute the elapsed time. 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+
+\backslash
+lstset
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+{
+\end_layout
+
+\end_inset
+
+language=[90]Fortran
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+}
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset listings
+lstparams "title={Time in Fortran}"
+inline false
+status collapsed
+
+\begin_layout Plain Layout
+
+PROGRAM time
+\end_layout
+
+\begin_layout Plain Layout
+
+ REAL :: etime          ! Declare the type of etime()
+\end_layout
+
+\begin_layout Plain Layout
+
+ REAL :: elapsed(2)     ! For receiving user and system time
+\end_layout
+
+\begin_layout Plain Layout
+
+ REAL :: total          ! For receiving total time
+\end_layout
+
+\begin_layout Plain Layout
+
+ INTEGER :: i, j
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+ WRITE(*,*) 'Start'
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+ DO i = 1, 5000000  
+\end_layout
+
+\begin_layout Plain Layout
+
+      j = j + 1
+\end_layout
+
+\begin_layout Plain Layout
+
+ ENDDO
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+ total = ETIME(elapsed)
+\end_layout
+
+\begin_layout Plain Layout
+
+ WRITE(*,*) 'End: total=', total, ' user=', elapsed(1), &
+\end_layout
+
+\begin_layout Plain Layout
+
+              ' system=', elapsed(2)
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+END PROGRAM time
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+
+(e) The aim here is to test possible memory strides when performing operations on matrices. To be more specific, we will look at the problem of matrix matrix multiplications. In C++ matrix elements are ordered in a row-major way while in Fortran they are ordered in a column-major order. The task here is to write a small program which sets up two random (use the ran0 function in the library lib.cpp to initialize the matrix) double precision valued matrices of dimension 
+\begin_inset Formula $10^4\times 10^4$
+\end_inset
+
+.
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+
+The multiplication of two matrices 
+\begin_inset Formula ${\bf A}={\bf BC}$
+\end_inset
+
+ could then take the following form in standard row-major order 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+
+\backslash
+lstset
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+{
+\end_layout
+
+\end_inset
+
+language=c++
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+}
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset listings
+inline false
+status collapsed
+for(i=0 ; i < n ; i++) {  
+\begin_layout Plain Layout
+
+      for(j=0 ; j < n ; j++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+         for(k=0 ; k < n ; k++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+            a[i][j]+=b[i][k]*c[k][j]
+\end_layout
+
+\begin_layout Plain Layout
+
+         }
+\end_layout
+
+\begin_layout Plain Layout
+
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+   }  
+\end_layout
+
+\end_inset
+
+ and in a column-major order as 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+
+\backslash
+lstset
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+{
+\end_layout
+
+\end_inset
+
+language=c++
+\begin_inset ERT
+status collapsed
+
+\begin_layout Standard
+
+}
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset listings
+inline false
+status collapsed
+for(j=0 ; j < n ; j++) {  
+\begin_layout Plain Layout
+
+      for(i=0 ; i < n ; i++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+         for(k=0 ; k < n ; k++) {
+\end_layout
+
+\begin_layout Plain Layout
+
+            a[i][j]+=b[i][k]*c[k][j]
+\end_layout
+
+\begin_layout Plain Layout
+
+         }
+\end_layout
+
+\begin_layout Plain Layout
+
+      }
+\end_layout
+
+\begin_layout Plain Layout
+
+   }  
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+After you have initialized the matrices 
+\begin_inset Formula ${\bf B}$
+\end_inset
+
+ and 
+\begin_inset Formula ${\bf C}$
+\end_inset
+
+ compute the matrix 
+\begin_inset Formula ${\bf A}$
+\end_inset
+
+ using the above algorithms. Compute the time needed for the matrix multiplications (do not include the time needed for the set up of the matrices and their initializations). You can also use the functions in BLAS to compute the matrix-matrix multiplications. To do that, test the speed using ArmadilloÂ´s functionality (using BLAS) for matrix-matrix multiplications. If you have time, you could compare your C++ program with matrix multiplication in Python. Comment your results.
+\end_layout
+
+\begin_layout Standard
+
+Good luck. 
+\end_layout
+
+\end_deeper
+\end_body
+\end_document

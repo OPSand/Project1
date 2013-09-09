@@ -45,7 +45,7 @@ int main(int argc, char* argv[])
 		printf ("Part B \n");
 		exB(iNbRow);
 #else 
-		printf ("Part B \n");
+		printf ("Part E \n");
 		exE(iNbRow);
 #endif
 		printf( "\n Press q to leave \n" );	

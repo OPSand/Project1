@@ -50,6 +50,11 @@ int main(int argc, char* argv[])
 #endif
 		printf( "\n Press q to leave \n" );	
 		leavingKey = getchar();
+
+		if (leavingKey == '\n')
+		{ // if newline from previous input is still in input stream
+			leavingKey = getchar(); // read next char (may be 'q')
+		}
 	} while (leavingKey != 'q') ;
 	
 	return 0;
@@ -386,6 +391,8 @@ matr colMult(matr A, matr B)
 
 void exE(int sizeVector)
 {
+	cout << "Initializing...";
+
 	// initialize n x n matrices to multiply
 	int n = sizeVector;
 	matr A = randu<matr>(n, n);
@@ -396,13 +403,15 @@ void exE(int sizeVector)
 	clock_t start, finish;
 	TYPE tRow, tCol;
 
+	cout << "done!" << endl << "Row major...";
+
 	// row major
 	start = clock();
 	C = rowMult(A, B); // OK because the 
 	finish = clock();
 	tRow = elapsedTime(start, finish);
 
-	cout << "Row major, time elapsed: " << tRow << endl;
+	cout << "done! Time elapsed: " << tRow << endl << "Column major...";
 
 	// column major
 	start = clock();
@@ -410,7 +419,7 @@ void exE(int sizeVector)
 	finish = clock();
 	tCol = elapsedTime(start, finish);
 
-	cout << "Row major, time elapsed: " << tRow << endl;
+	cout << "done! Time elapsed: " << tCol << endl;
 }
 
 #pragma endregion

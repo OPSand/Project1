@@ -41,20 +41,20 @@ int main(int argc, char* argv[])
 #ifdef EXA
 		printf("Part A \n");
 		exA(iNbRow);
-#elseifdef exB
+#elseifdef EXB
 		printf ("Part B \n");
 		exB(iNbRow);
 #else 
-		cout << "Part E" << endl;
+		printf ("Part B \n");
 		exE(iNbRow);
 #endif
 		printf( "\n Press q to leave \n" );	
 		leavingKey = getchar();
 
-		if (leavingKey == '\n')
+		/* if (leavingKey == '\n')
 		{ // if newline from previous input is still in input stream
 			leavingKey = getchar(); // read next char (may be 'q')
-		}
+		} */
 	} while (leavingKey != 'q') ;
 	
 	return 0;

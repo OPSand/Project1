@@ -1134,6 +1134,49 @@ status collapsed
  difficult to add to the project in Visual C++.)
 \end_layout
 
+\begin_layout Standard
+The output of our program:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename exE.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Figure 1: -
+\end_layout
+
+\begin_layout Standard
+TOTALLY BOGUS due to coffee break.
+ :p
+\end_layout
+
+\begin_layout Standard
+Figure N: (Note that the 
+\begin_inset Quotes eld
+\end_inset
+
+Part B
+\begin_inset Quotes erd
+\end_inset
+
+ is a typo.
+ It should read 
+\begin_inset Quotes eld
+\end_inset
+
+Part E
+\begin_inset Quotes erd
+\end_inset
+
+.)
+\end_layout
+
 \begin_layout Section
 Conclusion
 \end_layout
@@ -1161,7 +1204,7 @@ we need more RAM.
 \end_layout
 
 \begin_layout Itemize
-
+???
 \end_layout
 
 \end_body

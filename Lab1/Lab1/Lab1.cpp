@@ -9,6 +9,7 @@
 #include <cmath>
 #include <iomanip> 
 
+
 using namespace std;
 using namespace arma;
 
@@ -22,6 +23,7 @@ int exB(int sizeVector);
 TYPE maxRelError(arr numericalVector, arr analyticVector, int n);
 arr analyticVector(int n, TYPE h);
 TYPE u(TYPE x);
+int luComparison(int sizeVector);
 void exE(int sizeVector);
 
 int main(int argc, char* argv[])
@@ -41,9 +43,12 @@ int main(int argc, char* argv[])
 #ifdef EXA
 		printf("Part A \n");
 		exA(iNbRow);
-#elseifdef EXB
+#elif defined(EXB)
 		printf ("Part B \n");
 		exB(iNbRow);
+#elif defined(EXD)
+		printf("Part D \n");
+		luComparison(iNbRow);
 #else 
 		printf ("Part E \n");
 		exE(iNbRow);
@@ -314,6 +319,36 @@ arr analyticVector(int n, TYPE h) {
 
 TYPE u(TYPE x) {
 	return (1.0 - (1.0 - exp(-10.0))*x - exp(-10.0*x));
+}
+
+#pragma endregion
+
+#pragma region Exercise D
+int luComparison(int sizeVector)
+{
+	// We declare and instantiate our matrices
+	//matr m_A,m_L,m_U,m_P = matr(sizeVector,sizeVector);
+	matr m_A = matr(sizeVector,sizeVector);
+	mat P,L,U;
+	// Then we initialize them
+	for (int i=0; i< sizeVector; i++)
+	{
+		for (int j=0; j < sizeVector;j++)
+		{
+			m_A(i, j) = 0; 
+			if (j == i)
+				m_A(i, j) = 2;
+			else if ((j == i-1) || (j == i+1))
+				m_A(i, j) = -1;
+		}
+	} 
+	// Patatras ?
+	//lapack::getrf(); ...
+	//lu(L,U,P);
+	// lu(L,U,P,M); // Commented to let the program run ...
+
+ 	printf("Truc"); // Test
+	return 0;
 }
 
 #pragma endregion

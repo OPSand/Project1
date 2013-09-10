@@ -346,6 +346,7 @@ int luComparison(int sizeVector)
 	//lapack::getrf(); ...
 	//lu(L,U,P);
 	// lu(L,U,P,M); // Commented to let the program run ...
+	lu(L, U, P, m_A);
 
  	printf("Truc"); // Test
 	return 0;

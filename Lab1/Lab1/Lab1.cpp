@@ -20,11 +20,14 @@ bool forwardSubstitutionVector(arr &v_f, arr &v_b, arr v_a, int sizeVector);
 bool backwardSubstitutionVector(arr &v_f, arr &v_b, arr v_a, arr &v_Solution, int sizeVector);
 int exA(int sizeVector);
 int exB(int sizeVector);
-TYPE maxRelError(arr numericalVector, arr analyticVector, int n);
-arr analyticVector(int n, TYPE h);
-TYPE u(TYPE x);
-int luComparison(int sizeVector);
+int exB(int sizeVector, bool bIsPartOfD);
+TYPE maxRelError(arr numericalVector, arr analyticVector, int n); // ExC
+arr analyticVector(int n, TYPE h); // Ex C
+TYPE u(TYPE x); // ExC
+int luCalling(int sizeVector); // ExD
+int exD(int sizeVector); 
 void exE(int sizeVector);
+TYPE elapsedTime(clock_t start, clock_t finish);
 
 int main(int argc, char* argv[])
 {
@@ -48,7 +51,7 @@ int main(int argc, char* argv[])
 		exB(iNbRow);
 #elif defined(EXD)
 		printf("Part D \n");
-		luComparison(iNbRow);
+		exD(iNbRow);
 #else 
 		printf ("Part E \n");
 		exE(iNbRow);
@@ -160,33 +163,10 @@ bool backwardSubstitutionMatrix(matr m_A, arr v_f, arr v_Solution, int sizeVecto
 #pragma endregion 
 
 #pragma region Exercise B
-
-int exB (int sizeVector)
+// This function is an overloading of the exB(int) function. But when calling exB from exD, we don't want to plot, or things like that. Thus,
+// we'll use this boolean
+int exB(int sizeVector, bool bIsPartOfD)
 {
-	/* matr m_A = matr(sizeVector,sizeVector//  Test for the LU decomposition provided by Arma. Work in Progress
-	for (int i=0; i<sizeVector; i++)
-	{
-		for (int j= 0; j < sizeVector;j++)
-		{
-			m_A(i,j) = 0; 
-			if (j == i)
-				m_A(i,j) = 2;
-			else if ((j == i-1) || (j== i+1))
-				m_A(i,j) = -1;
-		}
-	}
-
-	matr U,L,P= mat (sizeVector,sizeVector);
-	//
-	lu(L,U,P,m_A);
-	//lu(L,U,m_A);
-
-	for (int i=0; i< sizeVector;i++)
-	{
-		for (int j=0; j< sizeVector;j++)
-			cout << U(i,j);
-	}
-	*/
 	// Declaration of our vectors:
 	arr v_Solution = arr(sizeVector); // This one is the one we are trying to find
 	arr v_f = arr(sizeVector); // This one is the part h²*100e(-10x)
@@ -208,27 +188,36 @@ int exB (int sizeVector)
 	forwardSubstitutionVector(v_f,v_b,v_a, sizeVector);
 	backwardSubstitutionVector(v_f,v_b,v_a,v_Solution,sizeVector);
 
-	// plot to file
-	matr xy = matr(sizeVector, 3); // column 0: 0-1, column 1: analytical, column 2: numerical
-	arr v_Analytic = analyticVector(sizeVector, h);
-
-	for( int i = 0; i < sizeVector; i++ )
+	// We don't want to compute what comes after if we are calling exB from exD !
+	if (!bIsPartOfD)
 	{
-		for( int j = 0; j < 3; j++ )
+		// plot to file
+		matr xy = matr(sizeVector, 3); // column 0: 0-1, column 1: analytical, column 2: numerical
+	
+		arr v_Analytic = analyticVector(sizeVector, h);
+
+		for( int i = 0; i < sizeVector; i++ )
 		{
-			xy(i, 0) = (i * h);
-			xy(i, 1) = v_Analytic[i];
-			xy(i, 2) = v_Solution[i];
+			for( int j = 0; j < 3; j++ )
+			{
+				xy(i, 0) = (i * h);
+				xy(i, 1) = v_Analytic[i];
+				xy(i, 2) = v_Solution[i];
+			}
 		}
+
+		xy.save("plot.txt", raw_ascii);
+		TYPE error = maxRelError(v_Solution,v_Analytic,sizeVector);
+		printf(" This is our max Rel error : %f", error);
 	}
-
-	xy.save("plot.txt", raw_ascii);
-	TYPE error = maxRelError(v_Solution,v_Analytic,sizeVector);
-	printf(" This is our max Rel error : %f", error);
-
 	cout << endl;
 
 	return 0;
+}
+
+int exB (int sizeVector)
+{
+	return exB(sizeVector, false);
 }
 
 // Function used to do the first step of the Gaussion elimination: the Forward Substitution
@@ -252,7 +241,7 @@ bool forwardSubstitutionVector(arr &v_f, arr  &v_b, arr v_c, int sizeVector)
 		//printf("a%d : %f \t b%d : %f \t c%d : %f \n",i, v_a[i],i, v_b[i],i, v_c[i]);
 	}
 
-	//for (int i=0; i< sizeVector; i++) // Not displaying it... Pretty clear for little number of Row, but not in other cases
+	//for (int i=0; i< sizeVector; i++) // Not displaying it... Pretty clear for little number of Row, but get messy in other cases
 		//printf(" After \tf%d : %f \n", i, v_f[i]);
 
 	return true;
@@ -324,10 +313,35 @@ TYPE u(TYPE x) {
 #pragma endregion
 
 #pragma region Exercise D
-int luComparison(int sizeVector)
+/*! This function allows us to time lu() and our tridiagonal solver functions */
+int exD(int sizeVector)
+{
+	// time measurement
+	clock_t start, finish;
+	TYPE timeToFinish = 0.0;
+	
+	// Timing the Armadillo's lu function
+	printf(" Starting LU decomposition ... \n");
+	start = clock ();
+	luCalling(sizeVector);
+	finish = clock();
+	timeToFinish = elapsedTime(start,finish);
+	printf(" Elapsed time to do the LU decomposition : %f \n", timeToFinish);
+	
+	// Timing our tridiagonal solver
+	printf(" Starting to use our tridiagonal solver ... \n");
+	start = clock ();
+	exB(sizeVector,true);
+	finish = clock();
+	timeToFinish = elapsedTime(start,finish);
+	printf(" Elapsed time to solve the system with our algo. : %f \n", timeToFinish);
+	
+	return 0;
+}
+
+int luCalling(int sizeVector)
 {
 	// We declare and instantiate our matrices
-	//matr m_A,m_L,m_U,m_P = matr(sizeVector,sizeVector);
 	matr m_A = matr(sizeVector,sizeVector);
 	mat P,L,U;
 	// Then we initialize them
@@ -342,13 +356,11 @@ int luComparison(int sizeVector)
 				m_A(i, j) = -1;
 		}
 	} 
-	// Patatras ?
-	//lapack::getrf(); ...
-	//lu(L,U,P);
-	// lu(L,U,P,M); // Commented to let the program run ...
-	lu(L, U, P, m_A);
 
- 	printf("Truc"); // Test
+	// And then we use the Armadillo function ~~
+	//if (!lu(L, U, P, m_A);)
+		//printf("An error occured during the Lower Upper decomposition ...");
+	
 	return 0;
 }
 

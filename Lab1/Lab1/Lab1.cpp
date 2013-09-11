@@ -215,7 +215,7 @@ int exB(int sizeVector, bool bIsPartOfD)
 	return 0;
 }
 
-int exB (int sizeVector)
+inline int exB (int sizeVector)
 {
 	return exB(sizeVector, false);
 }
@@ -306,7 +306,7 @@ arr analyticVector(int n, TYPE h) {
 	return a;
 }
 
-TYPE u(TYPE x) {
+inline TYPE u(TYPE x) {
 	return (1.0 - (1.0 - exp(-10.0))*x - exp(-10.0*x));
 }
 
@@ -368,9 +368,9 @@ int luCalling(int sizeVector)
 
 #pragma region Exercise E
 
-TYPE elapsedTime(clock_t start, clock_t finish)
+inline TYPE elapsedTime(clock_t start, clock_t finish)
 {
-	return (finish - start)/CLOCKS_PER_SEC;
+	return ((finish - start)/CLOCKS_PER_SEC);
 }
 
 TYPE** rowMult(TYPE** A, TYPE** B, int Arows, int Acols, int Brows, int Bcols)

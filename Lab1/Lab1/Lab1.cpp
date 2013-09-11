@@ -28,6 +28,7 @@ int luCalling(int sizeVector); // ExD
 int exD(int sizeVector); 
 void exE(int sizeVector);
 TYPE elapsedTime(clock_t start, clock_t finish);
+void exCtest(int n);
 
 int main(int argc, char* argv[])
 {
@@ -46,10 +47,13 @@ int main(int argc, char* argv[])
 #ifdef EXA
 		printf("Part A \n");
 		exA(iNbRow);
-#elif defined(EXB)
+#elif defined EXB 
 		printf ("Part B \n");
 		exB(iNbRow);
-#elif defined(EXD)
+#elif defined EXC
+		printf("Part C \n");
+		exCtest(iNbRow);
+#elif defined EXD
 		printf("Part D \n");
 		exD(iNbRow);
 #else 
@@ -267,29 +271,57 @@ bool backwardSubstitutionVector(arr &v_f, arr &v_b, arr v_c, arr &v_Solution, in
 
 #pragma region Exercise C
 
+void exCtest(int n)
+{
+	arr v_n = arr(n);
+	arr v_a = arr(n);
+
+	for( int i = 0; i < n; i++ )
+	{
+		TYPE x = 100.0 * ((TYPE)i)/(((TYPE)n)-1.0);
+		v_a[i] = x * (100.0 - x);
+		v_n[i] = x * (100.0 - x) + 1;
+	}
+
+	for( int i = 0; i < n; i++ )
+	{
+		cout << v_a[i] << " " << v_n[i] << endl;
+	}
+
+	TYPE epsilon = maxRelError(v_n, v_a, n);
+	printf("epsilon = %f", epsilon);
+}
+
 TYPE maxRelError(arr numericalVector, arr analyticVector, int n) {
-	TYPE zeroValue = -1000; // the logarithm of anything should be greater than this
-	TYPE e_max = zeroValue;
+	const TYPE ZEROVALUE = -1000; // the logarithm of anything should be greater than this in practice
+	TYPE e_max = ZEROVALUE;
 
 	for( int i = 0; i < n; i++ ) {
 		TYPE v_i = numericalVector[i];
 		TYPE u_i = analyticVector[i];
 		TYPE e_i= 0.0f;
-		try {
-			e_i = log10(abs((v_i - u_i) / u_i)); // could be log10( 0 ) in theory...
-			if (u_i == 0) // In a weird way, dividing by 0 does not fire an exception... Thus, we have to avoid that
-				e_i = zeroValue;
-		} 
-		catch( exception e ) {
-			e_i = zeroValue; // ...but we can work around that.
+
+		if (u_i != 0) // computing the relative error makes no sense if u_i is zero (we'd get infinity)
+		{
+			if (v_i == u_i) // perfect match!
+			{
+				e_i = ZEROVALUE;
+			}
+			else
+			{
+				e_i = log10(abs((v_i - u_i) / u_i));
+			}
+		}
+		else
+		{
+			e_i = ZEROVALUE; // ignore this case
 		}
 
 		if (e_i > e_max)	
 		{
-			e_max = abs(e_i);
+			e_max = e_i;
 			printf("i: %d | e_max: %f \t",  i,e_max);
-		}
-		
+		}		
 	}
 
 	return e_max;

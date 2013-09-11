@@ -357,9 +357,18 @@ int luCalling(int sizeVector)
 		}
 	} 
 
-	// And then we use the Armadillo function ~~
-	//if (!lu(L, U, P, m_A);)
-		//printf("An error occured during the Lower Upper decomposition ...");
+	/* And then we use the Armadillo function ~~
+	try
+	{
+		if (!lu(L, U, P, m_A))
+		{
+			printf("An error occured during the Lower Upper decomposition ...\n");
+			printf("lu returned false!");
+		}
+	} catch( exception e ) {
+		printf("An error occured during the Lower Upper decomposition ...\n");
+		printf(e.what());
+	} */
 	
 	return 0;
 }

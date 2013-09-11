@@ -802,7 +802,7 @@ status open
 \noindent
 \align left
 \begin_inset Graphics
-	filename Screens/Graph_b/n=1000.png
+	filename Screens/Graph_b/n=10.png
 	scale 45
 
 \end_inset
@@ -811,7 +811,7 @@ status open
 \begin_inset Caption
 
 \begin_layout Plain Layout
-Analytical and numerical results for n = 1 000
+Analytical and numerical results for n = 10
 \end_layout
 
 \end_inset
@@ -837,13 +837,13 @@ width "40col%"
 special "none"
 height "1in"
 height_special "totalheight"
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \noindent
 \align right
 \begin_inset Graphics
-	filename Screens/Graph_b/n=5000.png
+	filename Screens/Graph_b/n = 100.png
 	scale 45
 
 \end_inset
@@ -852,7 +852,7 @@ status collapsed
 \begin_inset Caption
 
 \begin_layout Plain Layout
-Analytical and numerical results for n = 5 000
+Analytical and numerical results for n = 100
 \end_layout
 
 \end_inset
@@ -883,13 +883,13 @@ width "45col%"
 special "none"
 height "1in"
 height_special "totalheight"
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \noindent
 \align center
 \begin_inset Graphics
-	filename Screens/Graph_b/n=10000.png
+	filename Screens/Graph_b/n=1000.png
 	scale 45
 
 \end_inset
@@ -898,7 +898,7 @@ status collapsed
 \begin_inset Caption
 
 \begin_layout Plain Layout
-Analytical and numerical results for n = 10 000
+Analytical and numerical results for n = 1 000
 \end_layout
 
 \end_inset
@@ -972,8 +972,9 @@ status open
 \noindent
 \align center
 \begin_inset Tabular
-<lyxtabular version="3" rows="3" columns="5">
+<lyxtabular version="3" rows="3" columns="6">
 <features tabularvalignment="middle">
+<column alignment="center" valignment="top" width="0">
 <column alignment="center" valignment="top" width="0">
 <column alignment="center" valignment="top" width="0">
 <column alignment="center" valignment="top" width="0">
@@ -993,31 +994,43 @@ Number of points
 \begin_inset Text
 
 \begin_layout Plain Layout
+\begin_inset Formula $10$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $100$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $1000$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
 \begin_inset Formula $10000$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset Formula $25000$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset Formula $50000$
 \end_inset
 
 
@@ -1052,31 +1065,34 @@ Step length
 \begin_inset Text
 
 \begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
 \begin_inset Formula $10^{-4}$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset Formula $4.10^{-5}$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset Formula $2.10^{-5}$
 \end_inset
 
 
@@ -1108,35 +1124,38 @@ Max.
 
 \end_inset
 </cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
 <cell alignment="center" valignment="top" bottomline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 \begin_inset Formula $0,07$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset Formula $0,03$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset Formula $0,01$
 \end_inset
 
 
@@ -1486,7 +1505,7 @@ status collapsed
  
 \begin_inset listings
 inline false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 
@@ -1511,11 +1530,6 @@ status collapsed
 \begin_layout Plain Layout
 
       }
-\end_layout
-
-\begin_layout Plain Layout
-
-   }  
 \end_layout
 
 \end_inset
@@ -1558,7 +1572,7 @@ status collapsed
  
 \begin_inset listings
 inline false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 
@@ -1583,11 +1597,6 @@ status collapsed
 \begin_layout Plain Layout
 
       }
-\end_layout
-
-\begin_layout Plain Layout
-
-   }  
 \end_layout
 
 \end_inset
@@ -1628,10 +1637,6 @@ Timings of row and column major multiplications
 
 \end_inset
 
-
-\end_layout
-
-\begin_layout Plain Layout
 
 \end_layout
 

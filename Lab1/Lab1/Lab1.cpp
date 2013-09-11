@@ -61,6 +61,7 @@ int main(int argc, char* argv[])
 		exE(iNbRow);
 #endif
 		printf( "\n Press q to leave \n" );	
+		fflush(stdin);
 		leavingKey = getchar();
 
 		/* if (leavingKey == '\n')

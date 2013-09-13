@@ -753,7 +753,171 @@ This gives a total running time of
 \end_layout
 
 \begin_layout Standard
-<INSERT RESULTS + PLOTS HERE>
+The following figures are the plots given after using our tridiagonal solver
+ (in blue) and after computing the results with the following equation,
+ given in the project description (in red here); 
+\begin_inset Formula 
+\[
+u(x)=1-(1-e^{-10})\cdot x-e^{-10x}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We can see that the bigger number of points we take, the better accuracy
+ we get, which is expected: by increasing our number of points, we increase
+ the number of samples to do our computation.
+ But we too increase the probability of meaningful round-off errors happening,
+ since two consecutives results will be really close if we have a large
+ number of points
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align left
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "c"
+use_parbox 0
+use_makebox 0
+width "40col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align left
+\begin_inset Graphics
+	filename Screens/Graph_b/n=10.png
+	scale 45
+
+\end_inset
+
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Analytical and numerical results for n = 10
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset space \hfill{}
+\end_inset
+
+
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "40col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align right
+\begin_inset Graphics
+	filename Screens/Graph_b/n = 100.png
+	scale 45
+
+\end_inset
+
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Analytical and numerical results for n = 100
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "45col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename Screens/Graph_b/n=1000.png
+	scale 45
+
+\end_inset
+
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Analytical and numerical results for n = 1 000
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsection
@@ -761,11 +925,11 @@ Exercise c)
 \end_layout
 
 \begin_layout Standard
-In thie exercise we will compute the relative error in the data set 
+In this exercise we compute the relative error in the data set 
 \begin_inset Formula $i=1,\dots,n$
 \end_inset
 
-,by setting up 
+, by setting up 
 \begin_inset Formula 
 \[
 \epsilon_{i}=log_{10}\left(\left|\frac{v_{i}-u_{i}}{u_{i}}\right|\right),
@@ -786,11 +950,279 @@ as function of
 \end_inset
 
 .
- For each step length we will extract the max value of the relative error.
+ Here, 
+\begin_inset Formula $v_{i}$
+\end_inset
+
+ is our numerical solution, given by our tridiagonal solver.
+ 
+\begin_inset Formula $u_{i}$
+\end_inset
+
+ is the analytical solution.
 \end_layout
 
 \begin_layout Standard
-...
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="3" columns="6">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Number of points
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $10$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $100$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $1000$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $10000$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $100000$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Step length
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $10^{-4}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $1.10^{-5}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Max.
+ relative error (%)
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $0,07$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $0,007$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Maximum relative error for different step lengths
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The main point here, is that by increasing the number of sample in our interval,
+ we can see that our results are getting more accurate.
+ But by doing that, we induce a round-off error, which explains why we aren't
+ getting any smaller error.
+ The consecutive results are indeed getting closer and closer as the number
+ of points grows,
+\end_layout
+
+\begin_layout Standard
+But it is also important to underline that the points for which the relative
+ error between the analytical and the numerical results is maximum, are
+ the boundary points.
+ Thus, wathever number of points we take, the relative error will remain
+ on these points, significant.
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+TODO:
+\series default
+ Step length too small induces rounding errors.
 \end_layout
 
 \begin_layout Subsection
@@ -798,159 +1230,597 @@ Exercise d)
 \end_layout
 
 \begin_layout Standard
-(TODO: Change the text below to sound less like an exercise and more like
- a description.)
+We will try to show here the differences between our tridiagonal solver,
+ and the LU function implemented in Armadillo (as lib.cpp would not play
+ nice in Windows, at least not for the moment).
+ We will especially look at two things: the time spent inside these functions,
+ and the number of floating point operations (FLOPS).
+ In order to compute the elapsed time for each function, we will use the
+ functions available in the library time.h.
 \end_layout
 
 \begin_layout Standard
-Compare your results with those from the LU decomposition codes for the
- matrix of sizes 
-\begin_inset Formula $10\times10$
+In terms of FLOPS, to solve a n system, our tridiagonal solver needs 
+\begin_inset Formula 
+\[
+6n
+\]
+
 \end_inset
 
-, 
-\begin_inset Formula $100\times100$
+
+\end_layout
+
+\begin_layout Standard
+With the LU function, decomposing a 
+\begin_inset Formula $n\times n$
 \end_inset
 
- and 
-\begin_inset Formula $1000\times1000$
+ matrix costs 
+\begin_inset Formula 
+\[
+\frac{2}{3}n^{3}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We can already deduce that our tridiagonal solver will probably run faster
+ than the LU function.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Tabular
+<lyxtabular version="3" rows="12" columns="3">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Dimension of 
+\begin_inset Formula $n\times n$
+\end_inset
+
+ matrix
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Time: Tridiagonal solver (s)
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Time: LU decomposition (s)
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $n=10$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\approx0$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\approx0$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $n=100$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $0.001$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $0.001$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $n=500$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $0.001$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $0.03$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $n=1000$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $0.001$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $0.124$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $n=2500$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $0.003$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $0.769$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $n=5000$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $0.004$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $3.104$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $n=10^{4}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $0.006$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+OoM*
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $n=10^{5}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $0.057$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+OoM*
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $n=10^{6}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $0.575$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+OoM*
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $n=10^{7}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $5.769$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+OoM*
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $n=10^{8}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+OoM*
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+OoM*
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Running times for LU decomposition and tridiagonal algorithm.
+ (*: Out of Memory error when initializing matrices.)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage pagebreak
+\end_inset
+
+From our results, we make the following observations:
+\end_layout
+
+\begin_layout Itemize
+Our tridiagonal solver is indeed 
+\begin_inset Formula $O(n)$
+\end_inset
+
+, excepting some tiny overhead that is only significant when 
+\begin_inset Formula $n$
+\end_inset
+
+
+\begin_inset Formula $\lesssim5000$
 \end_inset
 
 .
- Here you should use the library functions provided on the webpage of the
- course.
- Use for example the unix function 
-\begin_inset ERT
-status collapsed
-
-\begin_layout Plain Layout
-
-{
 \end_layout
 
+\begin_layout Itemize
+Given that 
+\begin_inset Formula $\frac{3.104}{0.769}\approx\frac{0.124}{0.03}\approx2^{2}$
+\end_inset
+
+ and 
+\begin_inset Formula $\frac{0.769}{0.124}\approx2.5^{2}$
+\end_inset
+
+, it is evident when comparing the values of 
+\begin_inset Formula $n$
+\end_inset
+
+ that Armadillo's LU implementation runs as 
+\begin_inset Formula $O(n^{2})$
+\end_inset
+
+, again with some tiny overhead for small 
+\begin_inset Formula $n$
+\end_inset
+
+.
+ This is significantly better scaling than we expect from the standard LU
+ algorithm, and thus we conclude that Armadillo uses a more efficient implementa
+tion.
+ Had we chosen to use lib.cpp instead, we would expect it to run as 
+\begin_inset Formula $O(n^{3})$
 \end_inset
 
 
-\begin_inset ERT
-status collapsed
-
-\begin_layout Plain Layout
-
-
-\backslash
-em
-\end_layout
-
-\end_inset
-
- time
-\begin_inset ERT
-status collapsed
-
-\begin_layout Plain Layout
-
-}
-\end_layout
-
-\end_inset
-
- when you run your codes and compare the time usage between LU decomposition
- and your tridiagonal solver.
- Alternatively, you can use the functions in C++, Fortran or Python that
- measure the time used.
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+.
 \end_layout
 
 \begin_layout Standard
-Make a table of the results and comment the differences in execution time
- How many floating point operations does the LU decomposition use to solve
- the set of linear equations? Can you run the standard LU decomposition
- for a matrix of the size 
-\begin_inset Formula $10^{5}\times10^{5}$
-\end_inset
-
-? Comment your results.
-\end_layout
-
-\begin_layout Standard
-To compute the elapsed time in c++ you can use the following statements
- 
-\begin_inset listings
-lstparams "title={Time in C++}"
-inline false
-status collapsed
-
-\begin_layout Plain Layout
-
-using namespace std;
-\end_layout
-
-\begin_layout Plain Layout
-
-...
-\end_layout
-
-\begin_layout Plain Layout
-
-#include "time.h"   //  you have to include the time.h header
-\end_layout
-
-\begin_layout Plain Layout
-
-int main()
-\end_layout
-
-\begin_layout Plain Layout
-
-{
-\end_layout
-
-\begin_layout Plain Layout
-
-    // declarations of variables 
-\end_layout
-
-\begin_layout Plain Layout
-
-    ...
-\end_layout
-
-\begin_layout Plain Layout
-
-    clock_t start, finish;  //  declare start and final time
-\end_layout
-
-\begin_layout Plain Layout
-
-    start = clock();
-\end_layout
-
-\begin_layout Plain Layout
-
-    // your code is here, do something and then get final time
-\end_layout
-
-\begin_layout Plain Layout
-
-    finish = clock();
-\end_layout
-
-\begin_layout Plain Layout
-
-    ( (finish - start)/CLOCKS_PER_SEC );
-\end_layout
-
-\begin_layout Plain Layout
-
-...
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-...
+The reason for these differences are, naturally, that our tridiagonal solver
+ is optimized for the problem at hand, using information about our matrix
+ that is not available to the general LU algorithm.
+ More to the point, the LU decomposition needs to calculate a lot of values
+ that our tridiagonal method ignores, since we know that our matrix is very
+ sparse.
 \end_layout
 
 \begin_layout Subsection
@@ -974,7 +1844,8 @@ The task here is to write a small program which sets up two random (use
 \begin_inset Formula $10^{4}\times10^{4}$
 \end_inset
 
- proved too memory intensive for our poor laptops.)
+ proved too memory intensive for our poor laptops, so we were forced to
+ scale it down.)
 \end_layout
 
 \begin_layout Standard
@@ -1020,7 +1891,7 @@ status collapsed
  
 \begin_inset listings
 inline false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 
@@ -1045,11 +1916,6 @@ status collapsed
 \begin_layout Plain Layout
 
       }
-\end_layout
-
-\begin_layout Plain Layout
-
-   }  
 \end_layout
 
 \end_inset
@@ -1092,7 +1958,7 @@ status collapsed
  
 \begin_inset listings
 inline false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 
@@ -1119,11 +1985,6 @@ status collapsed
       }
 \end_layout
 
-\begin_layout Plain Layout
-
-   }  
-\end_layout
-
 \end_inset
 
 
@@ -1136,9 +1997,15 @@ status collapsed
 
 \begin_layout Standard
 The output of our program:
-\end_layout
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
 
-\begin_layout Standard
+\begin_layout Plain Layout
+\noindent
+\align center
 \begin_inset Graphics
 	filename exE.png
 
@@ -1147,34 +2014,29 @@ The output of our program:
 
 \end_layout
 
-\begin_layout Standard
-Figure 1: -
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Timings of row and column major multiplications 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
-TOTALLY BOGUS due to coffee break.
- :p
-\end_layout
 
-\begin_layout Standard
-Figure N: (Note that the 
-\begin_inset Quotes eld
-\end_inset
-
-Part B
-\begin_inset Quotes erd
-\end_inset
-
- is a typo.
- It should read 
-\begin_inset Quotes eld
-\end_inset
-
-Part E
-\begin_inset Quotes erd
-\end_inset
-
-.)
+\series bold
+TODO:
+\series default
+ Explain this.
 \end_layout
 
 \begin_layout Section
@@ -1182,7 +2044,35 @@ Conclusion
 \end_layout
 
 \begin_layout Standard
-In this project we learned that...
+From this project, we have learned the following things:
+\end_layout
+
+\begin_layout Itemize
+Specialized algorithms can save significant computing time and memory.
+\end_layout
+
+\begin_layout Itemize
+Error analysis shows that there is a tradeoff to consider when choosing
+ a step size in a numerical method, aside from running time.
+ A smaller step size is only an improvement up to a point, where a smaller
+ step size may introduce loss of precision due to rounding errors - as such,
+ there exists a 
+\begin_inset Quotes eld
+\end_inset
+
+sweet spot
+\begin_inset Quotes erd
+\end_inset
+
+ where one can get the lowest possible relative error.
+ Analysis of the output compared to a known solution can help locate this
+ sweet spot.
+\end_layout
+
+\begin_layout Itemize
+Row major order vs.
+ column major order matters when you do matrix multiplication, due to differing
+ average memory jump length.
 \end_layout
 
 \begin_layout Subsection
@@ -1195,16 +2085,37 @@ We would like to provide the following items of feedback for future versions
 \end_layout
 
 \begin_layout Itemize
-lib.cpp sucks!
+We would be very thankful if lib.cpp were easier to include in our Visual
+ C++ projects on Windows.
+ We ended up using Armadillo instead, which worked well enough (and even
+ produced some interesting deviations from the expected result in exercise
+ d), but for future projects it would be nice if we got it to work from
+ the get-go.
 \end_layout
 
 \begin_layout Itemize
-we need more RAM.
- you made our laptops feel sad.
+It would be nice if Armadillo was introduced even earlier - we ended up
+ doing some things twice because we wanted to start early and hadn't gotten
+ Armadillo to work yet.
 \end_layout
 
 \begin_layout Itemize
-???
+Even though we were able to make Armadillo work on Windows and shared the
+ method, many other students found it cumbersome.
+ We recommend putting together a guide on how to do this (and we're happy
+ to share our experiences).
+\end_layout
+
+\begin_layout Itemize
+We're starting to feel that running our code on 4 GB of RAM is cutting it
+ pretty close, as we were restricted to matrices of sizes less than 
+\begin_inset Formula $\sim10^{4}\times10^{4}$
+\end_inset
+
+.
+ Perhaps this should be taken into account in the project description.
+ Then again, it is useful to have an idea of how much you can do with matrices
+ before you run into trouble.
 \end_layout
 
 \end_body

@@ -384,7 +384,7 @@ TYPE luCalling(int sizeVector)
 	{
 		// We declare and instantiate our matrices
 		matr m_A = matr(sizeVector,sizeVector);
-		mat P,L,U;
+		matr P,L,U;
 		// Then we initialize them
 		for (int i=0; i< sizeVector; i++)
 		{

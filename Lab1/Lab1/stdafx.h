@@ -18,8 +18,8 @@
 //#define EXB
 //#define EXC
 #define EXD
-typedef arma::vec arr; // it's good to be a pirate! (this is our untyped array/vector type)
-typedef arma::mat matr; // matrix class (now untyped)
+typedef arma::Col<TYPE> arr; // it's good to be a pirate! (typed array/vector)
+typedef arma::Mat<TYPE> matr; // typed matrix
 
 // Preprocessing instruction ...
 /*template<typename T1>

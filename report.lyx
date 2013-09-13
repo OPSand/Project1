@@ -2118,5 +2118,23 @@ We're starting to feel that running our code on 4 GB of RAM is cutting it
  before you run into trouble.
 \end_layout
 
+\begin_layout Itemize
+We found GitGUI for Windows extremely cumbersome to use, especially when
+ branching (we were forced to make local backups and clone the repository
+ from scratch several times).
+ We recently switched to GitHub for Windows (
+\begin_inset CommandInset href
+LatexCommand href
+target "http://windows.github.com/"
+
+\end_inset
+
+) and never looked back.
+ We would recommend mentioning its existence to students who want to code
+ in Windows.
+ It sports a very intuitive user interface, and we found that its changelog
+ all but eliminates the need for keeping a separate log.
+\end_layout
+
 \end_body
 \end_document

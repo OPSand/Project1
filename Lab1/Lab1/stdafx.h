@@ -14,12 +14,17 @@
 
 // We only have to modify this line to change the type of all of our variables
 #define TYPE double
+
+// Matrix / vector types
+typedef arma::Col<TYPE> arr; // it's good to be a pirate! (typed array/vector)
+typedef arma::Mat<TYPE> matr; // typed matrix
+
+// Program flow control variables - uncomment/comment to include/exclude a certain exercise
 //#define EXA
 //#define EXB
 //#define EXC
 #define EXD
-typedef arma::Col<TYPE> arr; // it's good to be a pirate! (typed array/vector)
-typedef arma::Mat<TYPE> matr; // typed matrix
+//#define EXE
 
 // Preprocessing instruction ...
 /*template<typename T1>
@@ -47,5 +52,3 @@ extern "C" bool lu
   
   return status;
   };*/
-
-// TODO: faites référence ici aux en-têtes supplémentaires nécessaires au programme

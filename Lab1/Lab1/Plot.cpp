@@ -7,11 +7,11 @@
 using namespace std;
 
 	// Write the content of a matrix to file for plotting in Matlab
-	// (obviously now redundant because armadillo does the same thing)
+	// (now redundant because armadillo does the same thing)
 	void WriteToFile(TYPE** M, string path, int nRow, int nCol)
 	{
-		ofstream outfile;
-		outfile.open(path);
+		ofstream outfile; // file stream
+		outfile.open(path); // attempt to open file for writing
 
 		for( int i = 0; i < nRow; i++ ) // rows
 		{

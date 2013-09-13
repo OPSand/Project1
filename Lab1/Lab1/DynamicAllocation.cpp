@@ -1,6 +1,3 @@
-// Lab1.cpp : définit le point d'entrée pour l'application console.
-//
-
 #include "stdafx.h"
 #include "DynamicAllocation.h"
 
@@ -41,8 +38,7 @@ TYPE** dynamicalMatrix(int iNbRow,int iNbColumn)
 	return adMatrix;
 }
 
-/*! We will allocate dynamically a matrix which address will be given with th argument
- *  We'll get the number of columns and of rows among the argument too
+/*! As dynamicalMatrix, but additionally fills the matrix with random elements
  */
 TYPE** randomMatrix(int iNbRow,int iNbColumn)
 {

@@ -1794,7 +1794,7 @@ Given that
 .
  This is significantly better scaling than we expect from the standard LU
  algorithm, and thus we conclude that Armadillo uses a more efficient implementa
-tion.
+tion for this operation.
  Had we chosen to use lib.cpp instead, we would expect it to run as 
 \begin_inset Formula $O(n^{3})$
 \end_inset
@@ -2116,6 +2116,24 @@ We're starting to feel that running our code on 4 GB of RAM is cutting it
  Perhaps this should be taken into account in the project description.
  Then again, it is useful to have an idea of how much you can do with matrices
  before you run into trouble.
+\end_layout
+
+\begin_layout Itemize
+We found GitGUI for Windows extremely cumbersome to use, especially when
+ branching (we were forced to make local backups and clone the repository
+ from scratch several times).
+ We recently switched to GitHub for Windows (
+\begin_inset CommandInset href
+LatexCommand href
+target "http://windows.github.com/"
+
+\end_inset
+
+) and never looked back.
+ We would recommend mentioning its existence to students who want to code
+ in Windows.
+ It sports a very intuitive user interface, and we found that its changelog
+ all but eliminates the need for keeping a separate log.
 \end_layout
 
 \end_body

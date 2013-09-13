@@ -1,14 +1,9 @@
-// Lab1.cpp : définit le point d'entrée pour l'application console.
-//
-
-
 #include "stdafx.h"
 #include "DynamicAllocation.h"
 #include "Plot.h"
 #include <iostream>
 #include <cmath>
 #include <iomanip> 
-
 
 using namespace std;
 using namespace arma;
@@ -30,6 +25,7 @@ void exE(int sizeVector);
 TYPE elapsedTime(clock_t start, clock_t finish);
 void exCtest(int n);
 
+// Main method
 int main(int argc, char* argv[])
 {
 	// We have to get the size of our Matrix 
@@ -40,10 +36,8 @@ int main(int argc, char* argv[])
 		int iNbRow;
 		cout << "Enter the number of rows you want \t";
 		cin >> iNbRow;
-		// Then, we have to get the number of columns 
-		//int iNbColumns;
-		//cout << "Enter the number of columns you want \t";
-		//cin >> iNbColumns;
+
+		// Runs some or all exercises (depending on flags set in stdafx.h)
 #ifdef EXA
 		printf("Part A \n");
 		exA(iNbRow);
@@ -56,7 +50,7 @@ int main(int argc, char* argv[])
 #elif defined EXD
 		printf("Part D \n");
 		exD(iNbRow);
-#else 
+#elif defined EXE
 		printf ("Part E \n");
 		exE(iNbRow);
 #endif
@@ -64,11 +58,7 @@ int main(int argc, char* argv[])
 		fflush(stdin);
 		leavingKey = getchar();
 
-		/* if (leavingKey == '\n')
-		{ // if newline from previous input is still in input stream
-			leavingKey = getchar(); // read next char (may be 'q')
-		} */
-	} while (leavingKey != 'q') ;
+	} while (leavingKey != 'q') ; // if 'q' then quit
 	
 	return 0;
 }
@@ -108,10 +98,11 @@ int exA(int sizeVector)
 	// Then backward substitution
 	backwardSubstitutionMatrix(m_A,v_f,v_Solution,sizeVector);
 
-	// plot to file
-	matr xy = matr(sizeVector, 3); // column 0: 0-1, column 1: analytical, column 2: numerical
+	// plot to file - this can be imported into Matlab
+	matr xy = matr(sizeVector, 3);
 	arr v_Analytic = analyticVector(sizeVector, h);
 
+	// column 0: x (0-->1), column 1: analytical, column 2: numerical
 	for( int i = 0; i < sizeVector; i++ )
 	{
 		for( int j = 0; j < 3; j++ )
@@ -125,7 +116,6 @@ int exA(int sizeVector)
 	xy.save("plot.txt", raw_ascii);
 
 	printf(" This is our max Rel error : %d", maxRelError(v_Solution,v_Analytic,sizeVector));
-
 
 	std::printf("\n");
 	return 0;
@@ -142,11 +132,11 @@ bool forwardSubstitutionMatrix(matr m_A, arr v_f, int sizeVector)
 		for (int j=1; j< sizeVector; j++)
 		{
 			m_A(i, j) -= coef*m_A(i-1, j); 
-			printf("m_A[%d][%d]: %f \n", i, j, m_A(i, j));
+			// printf("m_A[%d][%d]: %f \n", i, j, m_A(i, j)); // debug
 		}
 		v_f[i] -= v_f[i-1]*coef;
 		
-		printf("f[%d]: %f \n", i, v_f[i]);
+		// printf("f[%d]: %f \n", i, v_f[i]); // debug
 	}	
 	return true;
 }
@@ -157,11 +147,11 @@ bool backwardSubstitutionMatrix(matr m_A, arr v_f, arr v_Solution, int sizeVecto
 {
 	// We process the n case first, and then, we loop
 	v_Solution[sizeVector-1] = v_f[sizeVector-1] / m_A(sizeVector-1, sizeVector-1);
-	printf("u[%d]: %f \n", sizeVector-1, v_Solution[sizeVector-1]);// XXX A enlever ensuite. Juste pour tester.
+	// printf("u[%d]: %f \n", sizeVector-1, v_Solution[sizeVector-1]); // debug
 	for (int i= sizeVector-2; i > -1; i--)
 	{
 		v_Solution[i] = (v_f[i] - v_Solution[i+1]*m_A(i, i+1) / m_A(i, i));
-		printf("u[%d]: %f \n", i, v_Solution[i]);
+		// printf("u[%d]: %f \n", i, v_Solution[i]); // debug
 	}
 	return true;
 }
@@ -183,7 +173,7 @@ TYPE exB(int sizeVector, bool bIsPartOfD)
 	// Initialization
 	for (int i=0; i<sizeVector;i++)
 	{
-		x= i*h;
+		x = i*h;
 		v_f[i] = pow(h,2)*100*exp(-(double)10*x);
 		v_b(i) = 2;
 		v_a[i] = -1;
@@ -210,7 +200,7 @@ TYPE exB(int sizeVector, bool bIsPartOfD)
 		// plot to file
 		matr xy = matr(sizeVector, 3); // column 0: 0-1, column 1: analytical, column 2: numerical
 	
-		arr v_Analytic = analyticVector(sizeVector, h);
+		arr v_Analytic = analyticVector(sizeVector, h); // analytic solution
 
 		for( int i = 0; i < sizeVector; i++ )
 		{
@@ -223,6 +213,8 @@ TYPE exB(int sizeVector, bool bIsPartOfD)
 		}
 
 		xy.save("plot.txt", raw_ascii);
+
+		// Calculate max relative error
 		TYPE error = maxRelError(v_Solution,v_Analytic,sizeVector);
 		printf(" This is our max Rel error : %f", error);
 
@@ -232,6 +224,7 @@ TYPE exB(int sizeVector, bool bIsPartOfD)
 	return 0.0;
 }
 
+// do ex. B with no timers
 inline TYPE exB (int sizeVector)
 {
 	return exB(sizeVector, false);
@@ -239,6 +232,7 @@ inline TYPE exB (int sizeVector)
 
 // Function used to do the first step of the Gaussion elimination: the Forward Substitution
 // We'll kill every term which prevents the matrix A to be an upper triangular one.
+// Note the &'s needed to make Armadillo objects be passed by reference!
 bool forwardSubstitutionVector(arr &v_f, arr  &v_b, arr v_c, int sizeVector)
 {
 	// First, we need to duplicate v_a, since we have to "nearly diagonals"
@@ -255,15 +249,17 @@ bool forwardSubstitutionVector(arr &v_f, arr  &v_b, arr v_c, int sizeVector)
 		//v_a[i] += coef*v_b[i-1];  // This operation just allows us to check if  every term of the first diago is null after the substitution
 		v_b[i] -= coef;
 		v_f[i] += coef*v_f[i-1];
-		//printf("a%d : %f \t b%d : %f \t c%d : %f \n",i, v_a[i],i, v_b[i],i, v_c[i]);
+		//printf("a%d : %f \t b%d : %f \t c%d : %f \n",i, v_a[i],i, v_b[i],i, v_c[i]); // debug
 	}
 
-	//for (int i=0; i< sizeVector; i++) // Not displaying it... Pretty clear for little number of Row, but get messy in other cases
-		//printf(" After \tf%d : %f \n", i, v_f[i]);
+	//for (int i=0; i< sizeVector; i++) // debug
+		//printf(" After \tf%d : %f \n", i, v_f[i]); // debug
 
 	return true;
 }
 
+// Perform backward substitution
+// Note the &'s needed to make Armadillo objects be passed by reference!
 bool backwardSubstitutionVector(arr &v_f, arr &v_b, arr v_c, arr &v_Solution, int sizeVector)
 {
 	// We save the last term:
@@ -284,11 +280,15 @@ bool backwardSubstitutionVector(arr &v_f, arr &v_b, arr v_c, arr &v_Solution, in
 
 #pragma region Exercise C
 
+// For debugging purposes only (n = 5 is a good test case)
 void exCtest(int n)
 {
 	arr v_n = arr(n);
 	arr v_a = arr(n);
 
+	// initialize vectors
+	// v_a is the "analytic" solution
+	// v_n is the "numerical" solution, always off by 1
 	for( int i = 0; i < n; i++ )
 	{
 		TYPE x = 100.0 * ((TYPE)i)/(((TYPE)n)-1.0);
@@ -296,15 +296,18 @@ void exCtest(int n)
 		v_n[i] = x * (100.0 - x) + 1;
 	}
 
+	/* debug
 	for( int i = 0; i < n; i++ )
 	{
 		cout << v_a[i] << " " << v_n[i] << endl;
-	}
+	} */
 
+	// output max relative error and compare to known value
 	TYPE epsilon = maxRelError(v_n, v_a, n);
 	printf("epsilon = %f", epsilon);
 }
 
+// Calculate maximum relative error, given a vector of analytic values and a vector of numerical ones
 TYPE maxRelError(arr numericalVector, arr analyticVector, int n) {
 	const TYPE ZEROVALUE = -1000; // the logarithm of anything should be greater than this in practice
 	TYPE e_max = ZEROVALUE;
@@ -312,7 +315,7 @@ TYPE maxRelError(arr numericalVector, arr analyticVector, int n) {
 	for( int i = 0; i < n; i++ ) {
 		TYPE v_i = numericalVector[i];
 		TYPE u_i = analyticVector[i];
-		TYPE e_i= 0.0f;
+		TYPE e_i = 0.0f;
 
 		if (u_i != 0) // computing the relative error makes no sense if u_i is zero (we'd get infinity)
 		{
@@ -332,7 +335,8 @@ TYPE maxRelError(arr numericalVector, arr analyticVector, int n) {
 
 		if (e_i > e_max)	
 		{
-			e_max = e_i;
+			e_max = e_i; // this is our new maximum value
+
 			// printf("i: %d | e_max: %f \t",  i,e_max); // debug
 		}		
 	}
@@ -340,17 +344,19 @@ TYPE maxRelError(arr numericalVector, arr analyticVector, int n) {
 	return e_max;
 }
 
+// Fill a vector with analytic values (takes vector length and step size as input)
 arr analyticVector(int n, TYPE h) {
 	arr a = arr(n);
 
 	for( int i = 0; i < n; i++ ) {
-		TYPE x = i * h;
+		TYPE x = i * h; // assumes that x0 = 0
 		a[i] = u(x);
 	}
 
 	return a;
 }
 
+// Analytic solution to the differential equation
 inline TYPE u(TYPE x) {
 	return (1.0 - (1.0 - exp(-10.0))*x - exp(-10.0*x));
 }
@@ -378,6 +384,7 @@ int exD(int sizeVector)
 	return 0;
 }
 
+// Perform LU decomposition using Armadillo on a tridiagonal matrix
 TYPE luCalling(int sizeVector)
 {
 	try
@@ -403,7 +410,7 @@ TYPE luCalling(int sizeVector)
 
 		// time LU decomposition
 		start = clock();
-		bool success = lu(L, U, P, m_A);
+		bool success = lu(L, U, P, m_A); // returns false if something went wrong on Armadillo's side of things
 		finish = clock();
 
 		if (success)
@@ -418,7 +425,7 @@ TYPE luCalling(int sizeVector)
 			return 0.0;
 		}
 	}
-	catch( exception e ) // out of memory (large matrices)
+	catch( exception e ) // typical cause: out of memory (large matrices)
 	{
 		printf("An error occured during the Lower Upper decomposition ...\n");
 		printf(e.what());
@@ -437,8 +444,11 @@ inline TYPE elapsedTime(clock_t start, clock_t finish)
 	return (((TYPE)(finish - start))/((TYPE)CLOCKS_PER_SEC)); // avoid long division here
 }
 
+// performs matrix multiplication (using pointer matrixes)
+// row major order
 TYPE** rowMult(TYPE** A, TYPE** B, int Arows, int Acols, int Brows, int Bcols)
 {
+	// check dimensions
 	if( Acols != Brows )
 	{
 		throw new exception("matrix multiplication undefined - dimensions do not match");
@@ -453,6 +463,7 @@ TYPE** rowMult(TYPE** A, TYPE** B, int Arows, int Acols, int Brows, int Bcols)
 		int m = Bcols;
 		TYPE** C = dynamicalMatrix(n, m);
 
+		// use definition of matrix multiplication
 		for( int i = 0; i < n; i++ )
 		{
 			for( int j = 0; j < m; j++ )
@@ -469,8 +480,11 @@ TYPE** rowMult(TYPE** A, TYPE** B, int Arows, int Acols, int Brows, int Bcols)
 		return C;
 }
 
+// performs matrix multiplication (using pointer matrixes)
+// column major order
 TYPE** colMult(TYPE** A, TYPE** B, int Arows, int Acols, int Brows, int Bcols)
 {
+	// check dimensions
 	if( Acols != Brows )
 	{
 		throw new exception("matrix multiplication undefined - dimensions do not match");
@@ -485,6 +499,7 @@ TYPE** colMult(TYPE** A, TYPE** B, int Arows, int Acols, int Brows, int Bcols)
 		int m = Bcols;
 		TYPE** C = dynamicalMatrix(n, m);
 	
+		// use definition of matrix multiplication
 		for( int j = 0; j < m; j++ )
 		{
 			for( int i = 0; i < n; i++ )	
@@ -501,6 +516,8 @@ TYPE** colMult(TYPE** A, TYPE** B, int Arows, int Acols, int Brows, int Bcols)
 		return C;
 }
 
+// compare computing time of multiplying matrices row major vs. column major
+// NOTE: Will take up to an hour for n ~ 5000
 void exE(int sizeVector)
 {
 	cout << "Initializing...";

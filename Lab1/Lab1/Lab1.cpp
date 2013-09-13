@@ -19,12 +19,12 @@ bool backwardSubstitutionMatrix(matr m_A, arr v_f, arr v_Solution, int sizeVecto
 bool forwardSubstitutionVector(arr &v_f, arr &v_b, arr v_a, int sizeVector);
 bool backwardSubstitutionVector(arr &v_f, arr &v_b, arr v_a, arr &v_Solution, int sizeVector);
 int exA(int sizeVector);
-int exB(int sizeVector);
-int exB(int sizeVector, bool bIsPartOfD);
+TYPE exB(int sizeVector);
+TYPE exB(int sizeVector, bool bIsPartOfD);
 TYPE maxRelError(arr numericalVector, arr analyticVector, int n); // ExC
 arr analyticVector(int n, TYPE h); // Ex C
 TYPE u(TYPE x); // ExC
-int luCalling(int sizeVector); // ExD
+TYPE luCalling(int sizeVector); // ExD
 int exD(int sizeVector); 
 void exE(int sizeVector);
 TYPE elapsedTime(clock_t start, clock_t finish);
@@ -170,7 +170,7 @@ bool backwardSubstitutionMatrix(matr m_A, arr v_f, arr v_Solution, int sizeVecto
 #pragma region Exercise B
 // This function is an overloading of the exB(int) function. But when calling exB from exD, we don't want to plot, or things like that. Thus,
 // we'll use this boolean
-int exB(int sizeVector, bool bIsPartOfD)
+TYPE exB(int sizeVector, bool bIsPartOfD)
 {
 	// Declaration of our vectors:
 	arr v_Solution = arr(sizeVector); // This one is the one we are trying to find
@@ -189,12 +189,23 @@ int exB(int sizeVector, bool bIsPartOfD)
 		v_a[i] = -1;
 	}
 
+	// In ex. D, we need timers
+	clock_t start, finish;
+	if( bIsPartOfD )
+	{
+		start = clock();
+	}
+
 	// Forward Substitution:
 	forwardSubstitutionVector(v_f,v_b,v_a, sizeVector);
 	backwardSubstitutionVector(v_f,v_b,v_a,v_Solution,sizeVector);
 
-	// We don't want to compute what comes after if we are calling exB from exD !
-	if (!bIsPartOfD)
+	if( bIsPartOfD ) // (ex. D) in this case, we are only interested in the time, not the results
+	{
+		finish = clock();
+		return elapsedTime(start, finish);
+	}
+	else // (ex. B) we want to plot the results
 	{
 		// plot to file
 		matr xy = matr(sizeVector, 3); // column 0: 0-1, column 1: analytical, column 2: numerical
@@ -214,13 +225,14 @@ int exB(int sizeVector, bool bIsPartOfD)
 		xy.save("plot.txt", raw_ascii);
 		TYPE error = maxRelError(v_Solution,v_Analytic,sizeVector);
 		printf(" This is our max Rel error : %f", error);
-	}
-	cout << endl;
 
-	return 0;
+		cout << endl;
+	}
+
+	return 0.0;
 }
 
-inline int exB (int sizeVector)
+inline TYPE exB (int sizeVector)
 {
 	return exB(sizeVector, false);
 }
@@ -258,7 +270,7 @@ bool backwardSubstitutionVector(arr &v_f, arr &v_b, arr v_c, arr &v_Solution, in
 	v_Solution[sizeVector-1] = v_f[sizeVector-1]/v_b[sizeVector-1];
 	//printf(" u%d : %f \t", sizeVector-1, v_Solution[sizeVector-1]);
 	// and then we compute what's left
-	TYPE x= v_Solution[sizeVector-1];
+	TYPE x = v_Solution[sizeVector-1];
 	for (int i = sizeVector-1; i > 0; i--)
 	{
 		v_Solution[i-1] = (v_f[i-1] + v_Solution[i]) / v_b[i-1]; // ~2n flops
@@ -321,7 +333,7 @@ TYPE maxRelError(arr numericalVector, arr analyticVector, int n) {
 		if (e_i > e_max)	
 		{
 			e_max = e_i;
-			printf("i: %d | e_max: %f \t",  i,e_max);
+			// printf("i: %d | e_max: %f \t",  i,e_max); // debug
 		}		
 	}
 
@@ -355,64 +367,74 @@ int exD(int sizeVector)
 	
 	// Timing the Armadillo's lu function
 	printf(" Starting LU decomposition ... \n");
-	start = clock ();
-	luCalling(sizeVector);
-	finish = clock();
-	timeToFinish = elapsedTime(start,finish);
+	timeToFinish = luCalling(sizeVector);
 	printf(" Elapsed time to do the LU decomposition : %f \n", timeToFinish);
 	
 	// Timing our tridiagonal solver
 	printf(" Starting to use our tridiagonal solver ... \n");
-	start = clock ();
-	exB(sizeVector,true);
-	finish = clock();
-	timeToFinish = elapsedTime(start,finish);
+	timeToFinish = exB(sizeVector,true);
 	printf(" Elapsed time to solve the system with our algo. : %f \n", timeToFinish);
 	
 	return 0;
 }
 
-int luCalling(int sizeVector)
+TYPE luCalling(int sizeVector)
 {
-	// We declare and instantiate our matrices
-	matr m_A = matr(sizeVector,sizeVector);
-	mat P,L,U;
-	// Then we initialize them
-	for (int i=0; i< sizeVector; i++)
-	{
-		for (int j=0; j < sizeVector;j++)
-		{
-			m_A(i, j) = 0; 
-			if (j == i)
-				m_A(i, j) = 2;
-			else if ((j == i-1) || (j == i+1))
-				m_A(i, j) = -1;
-		}
-	} 
-
-	/* And then we use the Armadillo function ~~
 	try
 	{
-		if (!lu(L, U, P, m_A))
+		// We declare and instantiate our matrices
+		matr m_A = matr(sizeVector,sizeVector);
+		mat P,L,U;
+		// Then we initialize them
+		for (int i=0; i< sizeVector; i++)
+		{
+			for (int j=0; j < sizeVector;j++)
+			{
+				m_A(i, j) = 0; 
+				if (j == i)
+					m_A(i, j) = 2;
+				else if ((j == i-1) || (j == i+1))
+					m_A(i, j) = -1;
+			}
+		}
+
+		// initialize timers
+		clock_t start, finish;
+
+		// time LU decomposition
+		start = clock();
+		bool success = lu(L, U, P, m_A);
+		finish = clock();
+
+		if (success)
+		{
+			return elapsedTime(start, finish);
+		}
+		else
 		{
 			printf("An error occured during the Lower Upper decomposition ...\n");
 			printf("lu returned false!");
+
+			return 0.0;
 		}
-	} catch( exception e ) {
+	}
+	catch( exception e ) // out of memory (large matrices)
+	{
 		printf("An error occured during the Lower Upper decomposition ...\n");
 		printf(e.what());
-	} */
-	
-	return 0;
+
+		return 0.0;
+	}
 }
 
 #pragma endregion
 
 #pragma region Exercise E
 
+// returns number of seconds (as double/float) between two points in time
 inline TYPE elapsedTime(clock_t start, clock_t finish)
 {
-	return ((finish - start)/CLOCKS_PER_SEC);
+	return (((TYPE)(finish - start))/((TYPE)CLOCKS_PER_SEC)); // avoid long division here
 }
 
 TYPE** rowMult(TYPE** A, TYPE** B, int Arows, int Acols, int Brows, int Bcols)

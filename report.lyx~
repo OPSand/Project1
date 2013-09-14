@@ -1895,27 +1895,37 @@ status open
 
 \begin_layout Plain Layout
 
-      for(j=0 ; j < n ; j++) {
+	for(i=0 ; i < n ; i++) {
 \end_layout
 
 \begin_layout Plain Layout
 
-         for(k=0 ; k < n ; k++) {
+		for(j=0 ; j < n ; j++) {
 \end_layout
 
 \begin_layout Plain Layout
 
-            a[i][j]+=b[i][k]*c[k][j]
+			for(k=0 ; k < n ; k++) {
 \end_layout
 
 \begin_layout Plain Layout
 
-         }
+				a[i][j]+=b[i][k]*c[k][j]
 \end_layout
 
 \begin_layout Plain Layout
 
-      }
+        	}
+\end_layout
+
+\begin_layout Plain Layout
+
+		}
+\end_layout
+
+\begin_layout Plain Layout
+
+	}
 \end_layout
 
 \end_inset
@@ -1962,27 +1972,37 @@ status open
 
 \begin_layout Plain Layout
 
-      for(i=0 ; i < n ; i++) {
+	for(j=0 ; j < n ; j++) {
 \end_layout
 
 \begin_layout Plain Layout
 
-         for(k=0 ; k < n ; k++) {
+		for(i=0 ; i < n ; i++) {
 \end_layout
 
 \begin_layout Plain Layout
 
-            a[i][j]+=b[i][k]*c[k][j]
+			for(k=0 ; k < n ; k++) {
 \end_layout
 
 \begin_layout Plain Layout
 
-         }
+				a[i][j]+=b[i][k]*c[k][j]
 \end_layout
 
 \begin_layout Plain Layout
 
-      }
+        	}
+\end_layout
+
+\begin_layout Plain Layout
+
+		}
+\end_layout
+
+\begin_layout Plain Layout
+
+	}
 \end_layout
 
 \end_inset
@@ -1996,7 +2016,10 @@ status open
 \end_layout
 
 \begin_layout Standard
-The output of our program:
+The output of our program was as follows:
+\end_layout
+
+\begin_layout Standard
 \begin_inset Float figure
 placement H
 wide false
@@ -2018,7 +2041,7 @@ status open
 \begin_inset Caption
 
 \begin_layout Plain Layout
-Timings of row and column major multiplications 
+Elapsed time in seconds for row and column major multiplications 
 \end_layout
 
 \end_inset
@@ -2032,11 +2055,39 @@ Timings of row and column major multiplications
 \end_layout
 
 \begin_layout Standard
+We see that row major order multiplication takes more than 10% longer to
+ complete in all cases.
+ We know that Visual C++ stores matrices in row major order (see 
+\begin_inset CommandInset href
+LatexCommand href
+name "http://msdn.microsoft.com/en-us/library/8ccd1wzb%28v=vs.110%29.aspx"
+target "http://msdn.microsoft.com/en-us/library/8ccd1wzb%28v=vs.110%29.aspx"
 
-\series bold
-TODO:
-\series default
- Explain this.
+\end_inset
+
+), and this appears to result in longer memory leaps when looking up the
+ elements for the calculation.
+\end_layout
+
+\begin_layout Standard
+(Author's note: We are a little surprised by this result.
+ We would expect row major order to be more efficient, as the memory leaps
+ are likely to be shorter on average.
+ In particular, 
+\begin_inset Formula $k$
+\end_inset
+
+ affects rows and columns equally in total, whereas 
+\begin_inset Formula $i$
+\end_inset
+
+ leaps would be longer (on average equal to the length of a row) than 
+\begin_inset Formula $j$
+\end_inset
+
+ leaps within the same row.
+ We would appreciate some feedback on this to make sure we aren't misunderstandi
+ng something crucial.)
 \end_layout
 
 \begin_layout Section
@@ -2087,10 +2138,11 @@ We would like to provide the following items of feedback for future versions
 \begin_layout Itemize
 We would be very thankful if lib.cpp were easier to include in our Visual
  C++ projects on Windows.
- We ended up using Armadillo instead, which worked well enough (and even
- produced some interesting deviations from the expected result in exercise
- d), but for future projects it would be nice if we got it to work from
- the get-go.
+ We ended up using Armadillo instead, which worked well enough for our purposes
+ (and even produced some interesting deviations from the expected result
+ in exercise d), but for future projects it would be nice if we got it to
+ work from the get-go.
+ Is it possible to look into this?
 \end_layout
 
 \begin_layout Itemize
@@ -2104,18 +2156,6 @@ Even though we were able to make Armadillo work on Windows and shared the
  method, many other students found it cumbersome.
  We recommend putting together a guide on how to do this (and we're happy
  to share our experiences).
-\end_layout
-
-\begin_layout Itemize
-We're starting to feel that running our code on 4 GB of RAM is cutting it
- pretty close, as we were restricted to matrices of sizes less than 
-\begin_inset Formula $\sim10^{4}\times10^{4}$
-\end_inset
-
-.
- Perhaps this should be taken into account in the project description.
- Then again, it is useful to have an idea of how much you can do with matrices
- before you run into trouble.
 \end_layout
 
 \begin_layout Itemize

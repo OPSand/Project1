@@ -2091,6 +2091,22 @@ ng something crucial.)
 \end_layout
 
 \begin_layout Section
+Source code
+\end_layout
+
+\begin_layout Standard
+All our source code can be found at our GitHub repository: 
+\begin_inset CommandInset href
+LatexCommand href
+name "https://github.com/OPSand/Project1"
+target "https://github.com/OPSand/Project1"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
 Conclusion
 \end_layout
 

@@ -1895,27 +1895,22 @@ status open
 
 \begin_layout Plain Layout
 
-	for(i=0 ; i < n ; i++) {
+for(i=0 ; i < n ; i++) {
 \end_layout
 
 \begin_layout Plain Layout
 
-		for(j=0 ; j < n ; j++) {
+	for(j=0 ; j < n ; j++) {
 \end_layout
 
 \begin_layout Plain Layout
 
-			for(k=0 ; k < n ; k++) {
+		for(k=0 ; k < n ; k++) {
 \end_layout
 
 \begin_layout Plain Layout
 
-				a[i][j]+=b[i][k]*c[k][j]
-\end_layout
-
-\begin_layout Plain Layout
-
-        	}
+			a[i][j]+=b[i][k]*c[k][j]
 \end_layout
 
 \begin_layout Plain Layout
@@ -1926,6 +1921,11 @@ status open
 \begin_layout Plain Layout
 
 	}
+\end_layout
+
+\begin_layout Plain Layout
+
+}
 \end_layout
 
 \end_inset
@@ -1972,27 +1972,22 @@ status open
 
 \begin_layout Plain Layout
 
-	for(j=0 ; j < n ; j++) {
+for(j=0 ; j < n ; j++) {
 \end_layout
 
 \begin_layout Plain Layout
 
-		for(i=0 ; i < n ; i++) {
+	for(i=0 ; i < n ; i++) {
 \end_layout
 
 \begin_layout Plain Layout
 
-			for(k=0 ; k < n ; k++) {
+		for(k=0 ; k < n ; k++) {
 \end_layout
 
 \begin_layout Plain Layout
 
-				a[i][j]+=b[i][k]*c[k][j]
-\end_layout
-
-\begin_layout Plain Layout
-
-        	}
+			a[i][j]+=b[i][k]*c[k][j]
 \end_layout
 
 \begin_layout Plain Layout
@@ -2003,6 +1998,11 @@ status open
 \begin_layout Plain Layout
 
 	}
+\end_layout
+
+\begin_layout Plain Layout
+
+}
 \end_layout
 
 \end_inset

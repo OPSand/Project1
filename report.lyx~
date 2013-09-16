@@ -68,6 +68,17 @@ Project 1, FYS 3150 / 4150, fall 2013
 Nathalie Bonatout and Odd Petter Sand
 \end_layout
 
+\begin_layout Standard
+Link to the GitHub domain : 
+\begin_inset CommandInset href
+LatexCommand href
+target "https://github.com/OPSand/Project1"
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Section
 Introduction
 \end_layout
@@ -1235,14 +1246,6 @@ But it is also important to underline that the points for which the relative
  the boundary points.
  Thus, wathever number of points we take, the relative error will remain
  on these points, significant.
-\end_layout
-
-\begin_layout Standard
-
-\series bold
-TODO:
-\series default
- Step length too small induces rounding errors.
 \end_layout
 
 \begin_layout Subsection

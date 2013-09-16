@@ -783,7 +783,7 @@ We can see that the bigger number of points we take, the better accuracy
  the number of samples to do our computation.
  But we too increase the probability of meaningful round-off errors happening,
  since two consecutives results will be really close if we have a large
- number of points
+ number of points.
 \end_layout
 
 \begin_layout Standard
@@ -1246,14 +1246,6 @@ But it is also important to underline that the points for which the relative
  the boundary points.
  Thus, wathever number of points we take, the relative error will remain
  on these points, significant.
-\end_layout
-
-\begin_layout Standard
-
-\series bold
-TODO:
-\series default
- Step length too small induces rounding errors.
 \end_layout
 
 \begin_layout Subsection

@@ -44,9 +44,10 @@ int main(int argc, char* argv[])
 #elif defined EXB 
 		printf ("Part B \n");
 		exB(iNbRow);
-#elif defined EXC
+#elif defined EXC // ExC is part of ExB
 		printf("Part C \n");
-		exCtest(iNbRow);
+		exB(iNbRow);
+		//exCtest(iNbRow);*/
 #elif defined EXD
 		printf("Part D \n");
 		exD(iNbRow);
@@ -54,7 +55,7 @@ int main(int argc, char* argv[])
 		printf ("Part E \n");
 		exE(iNbRow);
 #endif
-		printf( "\n Press q to leave \n" );	
+		printf( "\n Press q to leave, press any other key to continue \n" );	
 		fflush(stdin);
 		leavingKey = getchar();
 
@@ -410,7 +411,7 @@ TYPE luCalling(int sizeVector)
 
 		// time LU decomposition
 		start = clock();
-		bool success = lu(L, U, P, m_A); // returns false if something went wrong on Armadillo's side of things
+		bool success ;//= lu(L, U, P, m_A); // returns false if something went wrong on Armadillo's side of things
 		finish = clock();
 
 		if (success)

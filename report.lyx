@@ -68,6 +68,17 @@ Project 1, FYS 3150 / 4150, fall 2013
 Nathalie Bonatout and Odd Petter Sand
 \end_layout
 
+\begin_layout Standard
+Link to the GitHub domain : 
+\begin_inset CommandInset href
+LatexCommand href
+target "https://github.com/OPSand/Project1"
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Section
 Introduction
 \end_layout
@@ -802,7 +813,7 @@ status open
 \noindent
 \align left
 \begin_inset Graphics
-	filename Screens/Graph_b/n=10.png
+	filename Screens/Graph_b/n = 10.png
 	scale 45
 
 \end_inset
@@ -843,7 +854,7 @@ status open
 \noindent
 \align right
 \begin_inset Graphics
-	filename Screens/Graph_b/n = 100.png
+	filename Screens/Graph_b/n=100.png
 	scale 45
 
 \end_inset
@@ -1065,6 +1076,9 @@ Step length
 \begin_inset Text
 
 \begin_layout Plain Layout
+\begin_inset Formula $10^{-1}$
+\end_inset
+
 
 \end_layout
 
@@ -1074,6 +1088,9 @@ Step length
 \begin_inset Text
 
 \begin_layout Plain Layout
+\begin_inset Formula $10^{-2}$
+\end_inset
+
 
 \end_layout
 
@@ -1083,6 +1100,9 @@ Step length
 \begin_inset Text
 
 \begin_layout Plain Layout
+\begin_inset Formula $10^{-3}$
+\end_inset
+
 
 \end_layout
 
@@ -1128,6 +1148,9 @@ Max.
 \begin_inset Text
 
 \begin_layout Plain Layout
+\begin_inset Formula $16,627$
+\end_inset
+
 
 \end_layout
 
@@ -1137,6 +1160,9 @@ Max.
 \begin_inset Text
 
 \begin_layout Plain Layout
+\begin_inset Formula $15,269$
+\end_inset
+
 
 \end_layout
 
@@ -1146,6 +1172,9 @@ Max.
 \begin_inset Text
 
 \begin_layout Plain Layout
+\begin_inset Formula $14,234$
+\end_inset
+
 
 \end_layout
 
@@ -1155,7 +1184,7 @@ Max.
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset Formula $0,07$
+\begin_inset Formula $13,230$
 \end_inset
 
 
@@ -1167,7 +1196,7 @@ Max.
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset Formula $0,007$
+\begin_inset Formula $12,230$
 \end_inset
 
 
@@ -1203,10 +1232,12 @@ Maximum relative error for different step lengths
 \begin_layout Standard
 The main point here, is that by increasing the number of sample in our interval,
  we can see that our results are getting more accurate.
- But by doing that, we induce a round-off error, which explains why we aren't
- getting any smaller error.
- The consecutive results are indeed getting closer and closer as the number
- of points grows,
+ With small step lengths, we induce a round-off error.
+ But, even though the maximum relative error decrease as the number of points
+ grows, we can too assume that by doing that, we too induce a probability
+ of loss of precision.
+ Indeed, the consecutive results are getting closer and closer as the step
+ length decreases, which could lead to loss of precision.
 \end_layout
 
 \begin_layout Standard
@@ -1738,10 +1769,6 @@ Running times for LU decomposition and tridiagonal algorithm.
 
 \end_layout
 
-\begin_layout Plain Layout
-
-\end_layout
-
 \end_inset
 
 
@@ -2188,7 +2215,7 @@ target "http://windows.github.com/"
 ) and never looked back.
  We would recommend mentioning its existence to students who want to code
  in Windows.
- It sports a very intuitive user interface, and we found that its changelog
+ It supports a very intuitive user interface, and we found that its changelog
  all but eliminates the need for keeping a separate log.
 \end_layout
 

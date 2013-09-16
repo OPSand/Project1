@@ -21,9 +21,9 @@ typedef arma::Mat<TYPE> matr; // typed matrix
 
 // Program flow control variables - uncomment/comment to include/exclude a certain exercise
 //#define EXA
-//#define EXB
+#define EXB
 //#define EXC
-#define EXD
+//#define EXD
 //#define EXE
 
 // Preprocessing instruction ...
